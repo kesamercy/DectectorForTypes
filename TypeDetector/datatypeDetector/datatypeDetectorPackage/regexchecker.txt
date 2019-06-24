@@ -1,0 +1,30 @@
+public static void regexChecker(String theRegex, String str2Check){
+		
+         // You define your regular expression (REGEX) using Pattern
+
+         Pattern checkRegex = Pattern.compile(theRegex);
+
+         // Creates a Matcher object that searches the String for
+
+         // anything that matches the REGEX
+
+         Matcher regexMatcher = checkRegex.matcher( str2Check );
+
+         // Cycle through the positive matches and print them to screen
+
+         // Make sure string isn't empty and trim off any whitespace
+ 
+         while ( regexMatcher.find() ){
+ 
+             if (regexMatcher.group().length() != 0){
+            	 
+            	 System.out.println( );
+            	 
+            	 String stringfound = regexMatcher.group().trim(); 
+
+                 System.out.println( stringfound );
+             }//end if 
+
+         }//end while
+
+     }//end regexchecker
