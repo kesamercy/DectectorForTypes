@@ -1,4 +1,4 @@
-package datatypeDetectorPackage;
+package detectorPackage;
 
 import java.awt.FontFormatException;
 import java.io.File;
@@ -15,15 +15,17 @@ public class DetectorClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		String fileName = "C:\\Users\\nm293\\git\\TypeDetector\\datatypeDetector\\datatypeDetectorPackage\\data2.csv";
+		
+		String fileName = "C:\\\\Users\\\\nm293\\\\git\\\\DectectorForTypes\\\\TypeDetector\\\\datatypeDetector\\\\datatypeDetectorPackage\\\\data2.csv";
 		File file = new File(fileName);
 		
 		processFile(file);
-		
-	}// end main
+
+	}//end main
 	
-	public static void processFile(File filename) {
+	
+	
+public static void processFile(File filename) {
 		
 		String typefound = "none yet";
 		String [] colvalues = {};
@@ -154,4 +156,4 @@ public class DetectorClass {
 	 
 	 }//end findType 
 
-}// end DetectorClass
+}//end DetectorClass

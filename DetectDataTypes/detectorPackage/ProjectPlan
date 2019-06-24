@@ -1,4 +1,4 @@
- Changes made from last week:
+Changes made from last week:
  
  1. return the dominant data type found in each col
  2. Integers now return as integers and not only as float numbers
