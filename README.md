@@ -1,3 +1,3 @@
 # DectectorForTypes
 
-Program to detect data types found from an Iterable<String[]>.
+Program to detect data types found in an rows of data. E.g Iterable<String[]>.
