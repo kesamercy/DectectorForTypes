@@ -1,41 +1,28 @@
 Changes made from last week:
  
- 1. return the dominant data type found in each col
- 2. Integers now return as integers and not only as float numbers
- 3. String types are now detected. Both as a default type and also a matched type. 
- 4. Took the code out of main and created a new method to process the file
- 5. Started to implement the code when given an Iterable<String[]>. Still needs some work.
-
 
 
 Questions for Monday
-
-1. I want to create an array of hash maps to store the types from each col. Is that reasonable?
-
-2. For the data that matches more than one type, should I increment all the types it matches everytime
-the data is read? e.g. 5 matches as a float and also an integer so I would increment the float types
-and the integer type for that data?
- 
-3. How do I generically determine the types that match more than one data type?
-   That is, wouldn't every type match at least a string.
-   
-4. Should I add all the regex from the library i found? That is, get all the regex available there
-and copy them to my program?
-   
    
    
 To do next:
-fix the pushing to github
 
-have the types map to more than one type 
+- finish the iterable string function implementation - hash tables in array
+1. explain why we changed from array to list
+	- try using a list map
+	- try using an array 
+	- compare the tentative solutions and weigh pros and cons then decide
+- get a large number of the regular expressions and use those. --- webscrape the regex. preferably to a different file or fucntion
+- each regex should map to it's own type
+- put the regex in a different function
 
-put the regex in a different function
-
-give the function an iterable string ---- read about java iterable string. this is how the program should prepare to recieve data
-
-make the code elegant 
-
-implement your udnerstanding of matches different types --for  now
+- make the code elegant 
+- break down the code to guess first thousand then confirm the guess with the background worker.
+- always have different options for the desgin and compare them with each other and list pros and cons for each to determine which is more feasbil
 
 
-break down the code to guess first thousand then confirm the guess.
+To do in the future:
+1. have the types map to more than one type 
+2. match the different types and increase the count based on the types matched. 
+
+

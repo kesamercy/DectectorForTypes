@@ -16,7 +16,7 @@ public class DetectorClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String fileName = "C:\\\\Users\\\\nm293\\\\git\\\\DectectorForTypes\\\\TypeDetector\\\\datatypeDetector\\\\datatypeDetectorPackage\\\\data2.csv";
+		String fileName = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data2.csv";
 		File file = new File(fileName);
 		
 		processFile(file);
@@ -62,8 +62,24 @@ public static void processFile(File filename) {
 						datatypes.put(typefound, 1);
 						
 					}//end else 
+					
+					//determine the number of rows
+					
+					//keep count for the times looped:
+					
+					//when count for loop is  is 1/3 of the no of rows, break out of loop and guess the type.... store the type 
 						
 				} // end while
+				
+				//after the guess is done, use continue to proceed with the loop .... store the second type at EOF
+				
+				//compare the types if they match, if yes, return type is consistent
+				
+				//if they don't match, update the type 
+				
+				
+				//alternatively, look at threads to implement this beahviour.....
+				
 				
 				//determine the highest type from the hash table 
 				  int highesttypenum = 0;
