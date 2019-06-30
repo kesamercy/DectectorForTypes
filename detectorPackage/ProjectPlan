@@ -4,6 +4,8 @@ Changes made from last week:
 		- easier to implement
 		- needed to create a seperate class of hashmaps then add them as objects to the array had I used an array to implement this
 		- With lists, I could just create the hashMaps directly and add them to the list directly
+		
+2. Break down the code to guess first thousand then confirm the guess with the background worker.
 	
  
 
@@ -16,11 +18,15 @@ To do next:
 - get a large number of the regular expressions and use those. --- webscrape the regex. preferably to a different file or fucntion
 - each regex should map to it's own type
 - put the regex in a different function
+- make the code elegant --- use lambda expressions to make the code elegant 
 
-- make the code elegant 
-- break down the code to guess first thousand then confirm the guess with the background worker.
-- always have different options for the desgin and compare them with each other and list pros and cons for each to determine which is more feasbil
+Clean Up:
+- the threads methods.... 
 
+1. make sure the second thread runs on the second half of the data not all of it 
+2. see how to put the threads in different functions
+3. put repeated implementations in functions of their own
+4. 
 
 To do in the future:
 1. have the types map to more than one type 
