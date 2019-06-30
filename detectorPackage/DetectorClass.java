@@ -53,10 +53,32 @@ public class DetectorClass {
 	 */
 
 	/*
-	 * Method to add the datatype found to the respective hash map
-	 * input: data type found
-	 * input 2: Hash Map where type will be added
-	 * return: none
+	 * public static void runThreads() {
+	 *
+	 * int athirdOfNumRows = (1 / 3); int firstBatch = numrows / athirdOfNumRows;
+	 *
+	 * Thread t1 = new Thread(() -> {
+	 *
+	 * while (elementsAccessed != firstBatch) {
+	 *
+	 * ++firstBatch; try { Thread.sleep(1000); } catch (Exception e) { }
+	 *
+	 * } // end while });
+	 *
+	 * Thread t2 = new Thread(() -> {
+	 *
+	 * while (elementsAccessed >= firstBatch) { // first thread
+	 *
+	 * try { Thread.sleep(1000); } catch (Exception e) { } } // end while
+	 * ++firstBatch; });
+	 *
+	 * t1.start(); try { Thread.sleep(10); } catch (Exception e) { } t2.start();
+	 *
+	 * }// end runThreads
+	 */
+	/*
+	 * Method to add the datatype found to the respective hash map input: data type
+	 * found input 2: Hash Map where type will be added return: none
 	 */
 	public static void addTypeToHashMap(Map<String, Integer> hashMapToAddType, String typefound) {
 
@@ -139,47 +161,185 @@ public class DetectorClass {
 	 */
 	public static void processData(ArrayList<String[]> iterableString) {
 
-		int numElementsAccesed = 0;
-		int postnInList = 0;
-		String typefound = "none yet";
-		int numcols = 0;
 		List<Map<String, Integer>> listOfHashMapsForNumCols = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> listOfValidatingHashMaps = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> listOfHighestTypeInCols = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> listHighestTypeInCols = new ArrayList<Map<String, Integer>>();
 
-		// iterate through the iterable list created
-		for (String[] i : iterableString) {
+		Thread t1 = new Thread(() -> {
 
-			numcols = i.length;
+			int numElementsAccesed = 0;
+			int postnInList = 0;
+			String typefound = "none yet";
 
-			for (String j : i) {
+			iterableString.size();
+			int numcols = 0;
 
-				typefound = findType(j);
+			// iterate through the iterable list
+			for (String[] i : iterableString) {
 
-				if (numElementsAccesed >= numcols) {
+				numcols = i.length;
 
-					addTypeToHashMap(listOfHashMapsForNumCols.get(postnInList), typefound);
-					++postnInList;
-					if (postnInList >= numcols) {
-						postnInList = 0;
-					}
+				//while (numElementsAccesed != firstBatch) {
+
+				for (String j : i) {
+
+					typefound = findType(j);
+
+					if (numElementsAccesed >= numcols) {
+
+						addTypeToHashMap(listOfHashMapsForNumCols.get(postnInList), typefound);
+						++postnInList;
+						if (postnInList >= numcols) {
+							postnInList = 0;
+						}
+					} else {
+
+						Map<String, Integer> colDataTypes = new HashMap<String, Integer>();
+						addTypeToHashMap(colDataTypes, typefound);
+						// add the hash map to the list
+						listOfHashMapsForNumCols.add(numElementsAccesed, colDataTypes);
+
+					} // end else
+
+					numElementsAccesed++;
+
+				} // end for col
+
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
 				}
-				else {
 
-					Map<String, Integer> colDataTypes = new HashMap<String, Integer>();
-					addTypeToHashMap(colDataTypes, typefound);
-					// add the hash map to the list
-					listOfHashMapsForNumCols.add(numElementsAccesed, colDataTypes);
+				//} // end while
 
-				} // end else
-				numElementsAccesed++;
+			} // end for row
 
-			} // end for col
+			// print the elements in the list of col types
+			for (int i = 0; i < numcols; i++) {
+				System.out.println("For col " + i + listOfHashMapsForNumCols.get(i));
+			}
 
-		} // end for row
+			// return the highest type for each list index
+			int highesttypenumber = 0;
+			String dominantTypes = "none yet";
 
-		// print the elements in the list of col types
-		for (int i = 0; i < numcols; i++) {
-			System.out.println("For col " + i + listOfHashMapsForNumCols.get(i));
+			for (int i = 0; i < listOfValidatingHashMaps.size(); i++) {
+
+				Map<String, Integer> highestTypeInEachCol = new HashMap<String, Integer>();
+
+				for (String datatype : listOfHashMapsForNumCols.get(i).keySet()) {
+					Integer thetype = listOfHashMapsForNumCols.get(i).get(datatype);
+
+					if (thetype > highesttypenumber) {
+						highesttypenumber = thetype;
+						dominantTypes = datatype;
+					}
+
+					addTypeToHashMap(highestTypeInEachCol, dominantTypes);
+				}
+				listOfHighestTypeInCols.add(i, highestTypeInEachCol);
+			}
+
+		}); // end the first thread
+
+		Thread t2 = new Thread(() -> {
+
+			int elementsAccesed = 0;
+			int postnInList = 0;
+			String typefound = "none yet";
+
+			iterableString.size();
+			int numbcols = 0;
+			// iterate through the iterable list
+			for (String[] i : iterableString) {
+
+				numbcols = i.length;
+
+				//while (count >= firstBatch) {
+
+				for (String j : i) {
+
+					typefound = findType(j);
+
+					if (elementsAccesed >= numbcols) {
+
+						addTypeToHashMap(listOfValidatingHashMaps.get(postnInList), typefound);
+						++postnInList;
+						if (postnInList >= numbcols) {
+							postnInList = 0;
+						}
+					} else {
+
+						Map<String, Integer> validateGuessedTypes = new HashMap<String, Integer>();
+						addTypeToHashMap(validateGuessedTypes, typefound);
+						// add the hash map to the list
+						listOfValidatingHashMaps.add(elementsAccesed, validateGuessedTypes);
+
+					} // end else
+
+					elementsAccesed++;
+
+				} // end for col
+
+				//} // end while
+
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
+				}
+
+			} // end for row
+
+			// print the elements in the list of col types
+			for (int i = 0; i < numbcols; i++) {
+				System.out.println("For col " + i + listOfValidatingHashMaps.get(i));
+			}
+
+			// return the highest type for each list index
+			int highesttypenum = 0;
+			String dominantType = "none yet";
+
+			for (int i = 0; i < listOfValidatingHashMaps.size(); i++) {
+
+				Map<String, Integer> highestTypeInCol = new HashMap<String, Integer>();
+
+				for (String datatype : listOfValidatingHashMaps.get(i).keySet()) {
+					Integer thetype = listOfValidatingHashMaps.get(i).get(datatype);
+
+					if (thetype > highesttypenum) {
+						highesttypenum = thetype;
+						dominantType = datatype;
+					}
+
+					addTypeToHashMap(highestTypeInCol, dominantType);
+				}
+				listHighestTypeInCols.add(i, highestTypeInCol);
+			}
+
+			// compare the results from the 2 lists of hash tables created
+			for (int i = 0; i < listHighestTypeInCols.size(); i++) {
+
+				System.out.println(listHighestTypeInCols.get(i).equals(listOfHighestTypeInCols.get(i)));
+
+			}
+
+		}); // end the second thread
+
+		t1.start();
+		try {
+			Thread.sleep(10);
+		} catch (Exception e) {
 		}
+		t2.start();
+
+
+
+		// if the types for each col match, then return guess matched
+
+		// if the types don't match, return, guess for second worker as actuall guess
+		// and
+		// set a flag
 
 	}// end processFile
 

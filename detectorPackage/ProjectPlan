@@ -12,15 +12,16 @@ Questions for Monday
    
    
 To do next:
-1.
 - get a large number of the regular expressions and use those. --- webscrape the regex. preferably to a different file or fucntion
 - each regex should map to it's own type
 - put the regex in a different function
 
-- make the code elegant 
-- break down the code to guess first thousand then confirm the guess with the background worker.
-- always have different options for the desgin and compare them with each other and list pros and cons for each to determine which is more feasbil
+- make the code elegant --- look at how to use lamba expressions for some of the implementation already used 
 
+	- put the threads in their own function
+	- put determine the highes type in own function
+	-
+- break down the code to guess first thousand then confirm the guess with the background worker.
 
 To do in the future:
 1. have the types map to more than one type 
