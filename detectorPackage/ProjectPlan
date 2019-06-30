@@ -17,6 +17,10 @@ To do next:
 - put the regex in a different function
 
 - make the code elegant --- look at how to use lamba expressions for some of the implementation already used 
+
+	- put the threads in their own function
+	- put determine the highes type in own function
+	-
 - break down the code to guess first thousand then confirm the guess with the background worker.
 
 To do in the future:

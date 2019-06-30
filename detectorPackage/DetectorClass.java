@@ -161,14 +161,6 @@ public class DetectorClass {
 	 */
 	public static void processData(ArrayList<String[]> iterableString) {
 
-		int numElementsAccesed = 0;
-		int postnInList = 0;
-		String typefound = "none yet";
-
-		int athirdOfNumRows = (1 / 3);
-		int numrows = iterableString.size();
-		int firstBatch = numrows / athirdOfNumRows;
-
 		List<Map<String, Integer>> listOfHashMapsForNumCols = new ArrayList<Map<String, Integer>>();
 		List<Map<String, Integer>> listOfValidatingHashMaps = new ArrayList<Map<String, Integer>>();
 		List<Map<String, Integer>> listOfHighestTypeInCols = new ArrayList<Map<String, Integer>>();
@@ -176,6 +168,11 @@ public class DetectorClass {
 
 		Thread t1 = new Thread(() -> {
 
+			int numElementsAccesed = 0;
+			int postnInList = 0;
+			String typefound = "none yet";
+
+			iterableString.size();
 			int numcols = 0;
 
 			// iterate through the iterable list
@@ -183,50 +180,47 @@ public class DetectorClass {
 
 				numcols = i.length;
 
-				while (numElementsAccesed != firstBatch) {
+				//while (numElementsAccesed != firstBatch) {
 
-					for (String j : i) {
+				for (String j : i) {
 
-						typefound = findType(j);
+					typefound = findType(j);
 
-						if (numElementsAccesed >= numcols) {
+					if (numElementsAccesed >= numcols) {
 
-							addTypeToHashMap(listOfHashMapsForNumCols.get(postnInList), typefound);
-							++postnInList;
-							if (postnInList >= numcols) {
-								postnInList = 0;
-							}
-						} else {
+						addTypeToHashMap(listOfHashMapsForNumCols.get(postnInList), typefound);
+						++postnInList;
+						if (postnInList >= numcols) {
+							postnInList = 0;
+						}
+					} else {
 
-							Map<String, Integer> colDataTypes = new HashMap<String, Integer>();
-							addTypeToHashMap(colDataTypes, typefound);
-							// add the hash map to the list
-							listOfHashMapsForNumCols.add(numElementsAccesed, colDataTypes);
+						Map<String, Integer> colDataTypes = new HashMap<String, Integer>();
+						addTypeToHashMap(colDataTypes, typefound);
+						// add the hash map to the list
+						listOfHashMapsForNumCols.add(numElementsAccesed, colDataTypes);
 
-						} // end else
+					} // end else
 
-						numElementsAccesed++;
+					numElementsAccesed++;
 
-					} // end for col
+				} // end for col
 
-					++firstBatch;
-					try {
-						Thread.sleep(1000);
-					} catch (Exception e) {
-					}
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
+				}
 
-				} // end while
+				//} // end while
 
 			} // end for row
-
 
 			// print the elements in the list of col types
 			for (int i = 0; i < numcols; i++) {
 				System.out.println("For col " + i + listOfHashMapsForNumCols.get(i));
 			}
 
-
-			//return the highest type for each list index
+			// return the highest type for each list index
 			int highesttypenumber = 0;
 			String dominantTypes = "none yet";
 
@@ -251,42 +245,45 @@ public class DetectorClass {
 
 		Thread t2 = new Thread(() -> {
 
-			int numbcols = 0;
+			int elementsAccesed = 0;
+			int postnInList = 0;
+			String typefound = "none yet";
 
+			iterableString.size();
+			int numbcols = 0;
 			// iterate through the iterable list
 			for (String[] i : iterableString) {
 
 				numbcols = i.length;
 
+				//while (count >= firstBatch) {
+
 				for (String j : i) {
 
-					while (numElementsAccesed >= firstBatch) {
+					typefound = findType(j);
 
-						typefound = findType(j);
+					if (elementsAccesed >= numbcols) {
 
-						if (numElementsAccesed >= numbcols) {
+						addTypeToHashMap(listOfValidatingHashMaps.get(postnInList), typefound);
+						++postnInList;
+						if (postnInList >= numbcols) {
+							postnInList = 0;
+						}
+					} else {
 
-							addTypeToHashMap(listOfValidatingHashMaps.get(postnInList), typefound);
-							++postnInList;
-							if (postnInList >= numbcols) {
-								postnInList = 0;
-							}
-						} else {
+						Map<String, Integer> validateGuessedTypes = new HashMap<String, Integer>();
+						addTypeToHashMap(validateGuessedTypes, typefound);
+						// add the hash map to the list
+						listOfValidatingHashMaps.add(elementsAccesed, validateGuessedTypes);
 
-							Map<String, Integer> validateGuessedTypes = new HashMap<String, Integer>();
-							addTypeToHashMap(validateGuessedTypes, typefound);
-							// add the hash map to the list
-							listOfValidatingHashMaps.add(numElementsAccesed, validateGuessedTypes);
+					} // end else
 
-						} // end else
-
-					} // end while
-
-					numElementsAccesed++;
+					elementsAccesed++;
 
 				} // end for col
 
-				++firstBatch;
+				//} // end while
+
 				try {
 					Thread.sleep(1000);
 				} catch (Exception e) {
@@ -296,11 +293,10 @@ public class DetectorClass {
 
 			// print the elements in the list of col types
 			for (int i = 0; i < numbcols; i++) {
-				System.out.println("For col " + i + listOfHashMapsForNumCols.get(i));
+				System.out.println("For col " + i + listOfValidatingHashMaps.get(i));
 			}
 
-
-			//return the highest type for each list index
+			// return the highest type for each list index
 			int highesttypenum = 0;
 			String dominantType = "none yet";
 
@@ -321,6 +317,13 @@ public class DetectorClass {
 				listHighestTypeInCols.add(i, highestTypeInCol);
 			}
 
+			// compare the results from the 2 lists of hash tables created
+			for (int i = 0; i < listHighestTypeInCols.size(); i++) {
+
+				System.out.println(listHighestTypeInCols.get(i).equals(listOfHighestTypeInCols.get(i)));
+
+			}
+
 		}); // end the second thread
 
 		t1.start();
@@ -330,25 +333,13 @@ public class DetectorClass {
 		}
 		t2.start();
 
-		//compare the results from the 2 lists of hash tables created
-
-		for (int j = 0; j < listHighestTypeInCols.size(); j++) {
 
 
-			//use a method from stack overflow to implement this part of the
-			//program... then modifiy it to see the types you want
+		// if the types for each col match, then return guess matched
 
-
-
-		}
-
-
-
-
-		//if the types for each col match, then return guess matched
-
-		//if the types don't match, return, guess for second worker as actuall guess and
-		//set a flag
+		// if the types don't match, return, guess for second worker as actuall guess
+		// and
+		// set a flag
 
 	}// end processFile
 
