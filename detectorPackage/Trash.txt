@@ -1,0 +1,28 @@
+// determine the highest type from the hash table
+				int highesttypenum = 0;
+				String dominantType = "none yet";
+
+				for (String datatype : datatypes.keySet()) {
+					Integer thetype = datatypes.get(datatype);
+					if (thetype > highesttypenum) {
+						highesttypenum = thetype;
+						dominantType = datatype;
+					}
+				}
+
+				System.out.println();
+				System.out.printf("the dominant type is '%s', %d times", dominantType, highesttypenum);
+
+				System.out.println();
+				System.out.println("type for col  " + i + datatypes);
+
+				// remove the current data in the hash map
+				datatypes.clear();
+
+				// close the file
+				inputStream.close();
+
+			} // end for
+
+			// close the file for finding the number of cols
+			filecols.close();
