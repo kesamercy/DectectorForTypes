@@ -15,12 +15,12 @@ public class DetectorClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+	
 		
 		String fileName = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data2.csv";
 		File file = new File(fileName);
 		
-		processFile(file);
-
+		processFile(file); 
 	}//end main
 	
 	

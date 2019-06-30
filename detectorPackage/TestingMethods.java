@@ -32,7 +32,7 @@ public class TestingMethods {
 		Map<String, Integer> datatypes = new HashMap<>();
 		
 		//create an array of hash maps 
-		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
 		 
 		
 		   // Map<String, String> map = new HashMap<String, String>();
@@ -64,23 +64,61 @@ public class TestingMethods {
 				
 			}//end while 
 			int m = 0;
+			int postnInList = 0;
+			String typefound;
 			
 			//iterate through the iterable list created 
 			for (String[] i : aj) {
 				
-				for (String j : i) {
-					Map<String, String> map = new HashMap<String, String>();
-					System.out.println("the values for j " + j + m);
-					map.put("data", j);
-					list.add(m, map);
+				for (String j : i) {		
 					
-					//System.out.println("did we get here " + list.get(0));
+					Map<String, Integer> map = new HashMap<String, Integer>();
+					//System.out.println("the values for j " + j + m);
+					
+					typefound = findType(j);
+					
+					if (m >= 3) {
+						
+						if (list.get(postnInList).containsKey(typefound)) {
+							
+							//increase the count for type found already
+							list.get(postnInList).put(typefound, list.get(postnInList).get(typefound) + 1);
+							
+						}
+						else {
+							//add the type found to the hash map
+							list.get(postnInList).put(typefound, 1);
+							
+						}//end else 
+						
+						++postnInList;
+						
+						if (postnInList >= 3) {
+							
+							//reset the position in list to 0
+							postnInList = 0;
+							
+						}
+					}
+					else {
+						
+						if(map.containsKey(typefound)) {
+							 //increase the count for type found already
+							map.put(typefound, map.get(typefound) + 1);
+							
+						}//end if 
+						else {
+							//add the type found to the hash map
+							map.put(typefound, 1);
+							
+						}//end else 
+						
+						list.add(m, map);
+						
+					}
 					m++;
 					
-					if (m == 3) {
-						//reset m
-						m = 0;
-					}
+					
 					
 					/*
 					 * supposed to have each list index represent a hasha map of the number of cols
@@ -94,6 +132,8 @@ public class TestingMethods {
 					 * 2. rest of them they are supposed to be increasing the types in the maps already
 					 * created 
 					 * 3. figure out the hash map implementation.... so close!!!!
+					 * 4. write a function for the get method so that you are just calling it since the 
+					 * implementation is the same 
 					 * 
 					 * FIRST THING TO DO IS THIS BELOW!!! READ ABOUT THE LISTS
 					 * read about lists in java and they will give you a clue how to access the maps stored
@@ -103,37 +143,16 @@ public class TestingMethods {
 					- supposed to figure out how to get the list to have indivual maps == to the 
 					 * 
 					 * 
+					 * transfer implementation
+					 * 1. make it work in detect implementation
+					 * 2. put it in another method and call it
+					 * 3. clean up the impelementation if you can
+					 * 
+					 * 
 					*/
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+	
 					
 					//create an array of hash tables based on the number of cols 
 					
@@ -146,25 +165,6 @@ public class TestingMethods {
 					
 					
 					
-					
-					
-					
-					//create a hash table for each col
-					
-					//start with col 0
-					
-					String typefound = findType(j);
-					if(datatypes.containsKey(typefound)) {
-						 //increase the count for type found already
-						datatypes.put(typefound, datatypes.get(typefound) + 1);
-						
-					}//end if 
-					else {
-						//add the type found to the hash map
-						datatypes.put(typefound, 1);
-						
-					}//end else 
-					
 					//store the types in each col as they are read
 					
 					//finally, determine the types returned from each hash table in the respective col
@@ -175,15 +175,13 @@ public class TestingMethods {
 				
 			}
 			
-		/*
-		 * for (int i = 0; i < 27; i++) {
-		 * 
-		 * System.out.println("did we get here " + list.get(i));
-		 * 
-		 * }
-		 */
+			for (int i = 0; i < 3; i++) {
+				
+				System.out.println("For col "+ i + list.get(i));
+				
+			}
+
 			
-			System.out.println("did we get here " + list.get(1));
 			
 			
 			
