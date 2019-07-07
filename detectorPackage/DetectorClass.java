@@ -13,7 +13,7 @@ public class DetectorClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String fileName = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data2.csv";
+		String fileName = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data.csv";
 		File file = new File(fileName);
 
 		try {
@@ -42,40 +42,6 @@ public class DetectorClass {
 
 	}// end main
 
-	/*
-	 * implementation for the background worker that kicks off determine the number
-	 * of rows keep count for the times looped: when count for loop is is 1/3 of the
-	 * no of rows, THEN break out of loop and guess the type.... store the type
-	 * after the guess is done, use continue to proceed with the loop .... store the
-	 * second type at EOF compare the types if they match, if yes, return type is
-	 * consistent if they don't match, update the type alternatively, look at
-	 * threads to implement this beahviour.....
-	 */
-
-	/*
-	 * public static void runThreads() {
-	 *
-	 * int athirdOfNumRows = (1 / 3); int firstBatch = numrows / athirdOfNumRows;
-	 *
-	 * Thread t1 = new Thread(() -> {
-	 *
-	 * while (elementsAccessed != firstBatch) {
-	 *
-	 * ++firstBatch; try { Thread.sleep(1000); } catch (Exception e) { }
-	 *
-	 * } // end while });
-	 *
-	 * Thread t2 = new Thread(() -> {
-	 *
-	 * while (elementsAccessed >= firstBatch) { // first thread
-	 *
-	 * try { Thread.sleep(1000); } catch (Exception e) { } } // end while
-	 * ++firstBatch; });
-	 *
-	 * t1.start(); try { Thread.sleep(10); } catch (Exception e) { } t2.start();
-	 *
-	 * }// end runThreads
-	 */
 	/*
 	 * Method to add the datatype found to the respective hash map input: data type
 	 * found input 2: Hash Map where type will be added return: none
@@ -171,9 +137,13 @@ public class DetectorClass {
 
 			processThreads(iterableString, firstThread, dataTypesInFristrows, dominantTypeFirstrows);
 
+			System.out.println("Confirming guessed types...");
+			System.out.println("");
+
 		}); // end the first thread
 
 		Thread t2 = new Thread(() -> {
+
 			int secondThread = 2;
 
 			processThreads(iterableString, secondThread, dataTypesInLastrows, dominantTypeLastrows);
@@ -181,24 +151,24 @@ public class DetectorClass {
 			// compare the results from the 2 lists of hash tables created
 			for (int i = 0; i < dominantTypeLastrows.size(); i++) {
 
-				if (dominantTypeLastrows.get(i).equals(dominantTypeFirstrows.get(i)) == true) {
+				boolean match = dominantTypeLastrows.get(i).equals(dominantTypeFirstrows.get(i));
 
-					System.out.println(dominantTypeLastrows.get(i).equals(dominantTypeFirstrows.get(i)));
-				}
-
+				if (match == true) {
+					System.out.println("Guessed type for col "+ i + " matches? " + match);
+				}//end if
 				else {
-					System.out.println("");
-					System.out.println("Previous guessed type for col " + i + " is incorrect");
+					System.out.println("Guessed type for col "+ i + " matches? " + match);
 					System.out.println("Actual type for col " + i + " " + dominantTypeLastrows.get(i));
-				}
+					System.out.println("");
+				}// end else
 
-			}
+			}// end for
 
 		}); // end the second thread
 
 		t1.start();
 		try {
-			Thread.sleep(10);
+			Thread.sleep(4000);
 		} catch (Exception e) {
 		}
 		t2.start();
@@ -228,7 +198,7 @@ public class DetectorClass {
 		count = 0;
 		numElementsAccesed = 0;
 		boolean conditionMet = true;
-		numrows = numrows / 2;
+		numrows = numrows / 3;
 		OperatorClass operator = OperatorClass.LESSTHAN;
 
 		if (threadNum == 2) {
@@ -264,26 +234,18 @@ public class DetectorClass {
 						listOfHashmaps.add(numElementsAccesed, colDataTypes);
 
 					} // end else
-
 					numElementsAccesed++;
-
 				} // end if count
-
 			} // end for col
-
 			++count;
-
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-			}
-
 		} // end for row
 
 		// print the elements in the list of col types
 		for (int i = 0; i < numcols; i++) {
 			System.out.println("For col " + i + listOfHashmaps.get(i));
 		}
+
+		System.out.println("");
 
 		// return the highest type for each list index
 		int highesttypenumber = 0;
@@ -301,9 +263,17 @@ public class DetectorClass {
 					dominantTypes = datatype;
 				}
 			}
+			System.out.println("The highest type in col " + i + " " + dominantTypes);
 			addTypeToHashMap(highestTypeInEachCol, dominantTypes);
 			listOfDominantTypes.add(i, highestTypeInEachCol);
-		}
+
+			// remove the current data in the hash map and reset the values for the next col
+			highestTypeInEachCol.clear();
+			highesttypenumber = 0;
+			dominantTypes  = "none yet";
+		}//end for
+
+		System.out.println(" ");
 
 	}// end process threads method
 

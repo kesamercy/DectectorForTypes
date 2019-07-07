@@ -6,30 +6,16 @@ Changes made from last week:
 		- With lists, I could just create the hashMaps directly and add them to the list directly
 		
 2. Break down the code to guess first thousand then confirm the guess with the background worker.
-	
- 
 
+3. 
 
 Questions for Monday
    
    
 To do next:
-- display the highest type from each col.
-- change the truth variable to a flag
-- modify the messages for the type confirmation in each col. 
-- work on the time interval for the program to run
 - get a large number of the regular expressions and use those. --- webscrape the regex. preferably to a different file or fucntion
-- each regex should map to it's own type
 - put the regex in a different function
 - make the code elegant --- use lambda expressions to make the code elegant 
-
-Clean Up:
-
-- make the code elegant --- look at how to use lambda expressions for some of the implementation already used 
-
-	- put the threads in their own function
-	- put determine the highest type in own function
-	- put repeated implementations in functions of their own
 
 To do in the future:
 1. have the types map to more than one type 
