@@ -1,4 +1,4 @@
-// determine the highest type from the hash table
+			// determine the highest type from the hash table
 				int highesttypenum = 0;
 				String dominantType = "none yet";
 
