@@ -11,171 +11,254 @@ import java.util.Scanner;
 public class DetectorClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ArrayList<String[]> listOfData = new ArrayList<String[]>();
+		Scanner input = new Scanner(System.in);
+		int numToDetermineHowDataIsGrouped = 0;
 
-		String fileName = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data.csv";
-		File file = new File(fileName);
+		String filePath = "C:\\Users\\nm293\\eclipse-workspace\\DetectDataTypes\\detectorPackage\\data.csv";
+		transformCsvToList(filePath, listOfData);
 
-		try {
-			Scanner filecols = new Scanner(file);
-			filecols.next(); // skip header
-
-			// create a collection that will emulate the iterable string that will be passed
-			ArrayList<String[]> iterableString = new ArrayList<String[]>();
-
-			// populate the iterable string with values
-			while (filecols.hasNext()) {
-
-				String colString = filecols.next();
-				String[] numcols = colString.split(",");
-				iterableString.add(numcols);
-
-			} // end while
-
-			processData(iterableString);
-
-			filecols.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println("Enter the number you wish to use to group the data when determing the data types");
+		numToDetermineHowDataIsGrouped = input.nextInt();
+		detectDataTypes(listOfData, numToDetermineHowDataIsGrouped);
 
 	}// end main
 
 	/*
-	 * Method to add the datatype found to the respective hash map input: data type
-	 * found input 2: Hash Map where type will be added return: none
+	 * method to convert a csv file to a list input: filepath to csv file output:
+	 * csv data in list form
 	 */
-	public static void addTypeToHashMap(Map<String, Integer> hashMapToAddType, String typefound) {
+	public static void transformCsvToList(String filePath, ArrayList<String[]> listOfData) {
+		File fileObject = new File(filePath);
+		String oneRowOfDataFromFile;
+		String[] rowDataInArrayForm;
 
-		if (hashMapToAddType.containsKey(typefound)) {
-			// increase the count for type found already
-			hashMapToAddType.put(typefound, hashMapToAddType.get(typefound) + 1);
+		try {
+			Scanner fileData = new Scanner(fileObject);
+			fileData.next(); // skip header
 
-		} // end if
+			while (fileData.hasNext()) { // populate the Array List with data from the file
+				oneRowOfDataFromFile = fileData.next();
+				rowDataInArrayForm = oneRowOfDataFromFile.split(",");
+				listOfData.add(rowDataInArrayForm);
+			} // end while
+
+			fileData.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}// end transformcsv
+
+	/*
+	 * Method to detect data types from a list of data given. Input: Iterable List
+	 * of data Output: List of data types detected per column.
+	 *
+	 */
+	public static void detectDataTypes(ArrayList<String[]> listOfData, int numToDetermineHowDataIsGrouped) {
+		List<Map<String, Integer>> dataTypesInFirstGroupOfData = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> dataTypesFromSecondGroupOfData = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> dominantDataTypeInFirstGroup = new ArrayList<Map<String, Integer>>();
+		List<Map<String, Integer>> dominantDataTypeFromSecondGroup = new ArrayList<Map<String, Integer>>();
+
+		Thread firstGroupOfData = new Thread(() -> {
+			int dataGroupNumber = 1;
+
+			guessDataTypesInEachColumn(listOfData, numToDetermineHowDataIsGrouped, dataGroupNumber,
+					dataTypesInFirstGroupOfData, dominantDataTypeInFirstGroup);
+		});
+
+		Thread secondGroupOfData = new Thread(() -> {
+			int dataGroupNumber = 2;
+
+			guessDataTypesInEachColumn(listOfData, numToDetermineHowDataIsGrouped, dataGroupNumber,
+					dataTypesFromSecondGroupOfData, dominantDataTypeFromSecondGroup);
+			determineIfGuessedDataTypesIsTrue(dominantDataTypeInFirstGroup, dominantDataTypeFromSecondGroup);
+		});
+
+		firstGroupOfData.start();
+		try {
+			Thread.sleep(3000);
+		} catch (Exception e) {
+		}
+		secondGroupOfData.start();
+
+	}
+
+	/*
+	 * method to find types in each column from the lsit of data given
+	 */
+	public static void guessDataTypesInEachColumn(ArrayList<String[]> listOfData, int numToDetermineHowDataIsGrouped,
+			int dataGroupNumber, List<Map<String, Integer>> dataTypesInGroupOfData,
+			List<Map<String, Integer>> dominantDataTypeInGroupOfData) {
+
+		String typefound = "none yet";
+		int numCols = 0;
+		int postnInList = 0;
+		int count = 0;
+		int elementsVisited = 0;
+		boolean isValidCondition = true;
+		int numDataInList = listOfData.size();
+		int numOfElementsInGroupOfData = numDataInList / numToDetermineHowDataIsGrouped;
+
+		OperatorClass operator = OperatorClass.LESSTHAN;
+		if (dataGroupNumber == 2) {
+			operator = OperatorClass.GREATERTHAN;
+		}
+		for (String[] i : listOfData) {
+			numCols = i.length;
+			for (String j : i) {
+				isValidCondition = determineIfGreaterThanOrLessThan(operator, count, numOfElementsInGroupOfData);
+
+				if (isValidCondition == true) {
+					typefound = findMatchingDataType(j);
+					if (elementsVisited >= numCols) {
+						addDataTypeFound(dataTypesInGroupOfData.get(postnInList), typefound);
+						++postnInList;
+						if (postnInList >= numCols) {
+							postnInList = 0;
+						}
+					} else {
+
+						Map<String, Integer> dataTypesForEachCol = new HashMap<String, Integer>();
+						addDataTypeFound(dataTypesForEachCol, typefound);
+						dataTypesInGroupOfData.add(elementsVisited, dataTypesForEachCol);
+
+					} // end else
+					elementsVisited++;
+				} // end if count
+			} // end for col
+			++count;
+		} // end for row
+
+		// print the elements in the list of col types
+		for (int i = 0; i < numCols; i++) {
+			System.out.println("For col " + i + dataTypesInGroupOfData.get(i));
+		}
+
+		System.out.println("");
+
+		determineDominantTypePerGroupOfData(dataTypesInGroupOfData, dominantDataTypeInGroupOfData);
+
+		System.out.println(" ");
+
+	}// end guesstypes per col
+
+	/*
+	 * method to determine highest type in each col
+	 */
+	public static void determineDominantTypePerGroupOfData(List<Map<String, Integer>> dataTypesInGroupOfData,
+			List<Map<String, Integer>> dominantDataTypeInGroupOfData) {
+		int frequencyOfDominantType = 0;
+		String dominantType = "none yet";
+
+		for (int i = 0; i < dataTypesInGroupOfData.size(); i++) {
+			frequencyOfDominantType = 0;
+			dominantType = "none yet";
+			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
+
+			for (String currentDataType : dataTypesInGroupOfData.get(i).keySet()) {
+				Integer frequencyOfCurrentType = dataTypesInGroupOfData.get(i).get(currentDataType);
+				if (frequencyOfCurrentType > frequencyOfDominantType) {
+					frequencyOfDominantType = frequencyOfCurrentType;
+					dominantType = currentDataType;
+				}
+			}
+			System.out.println("The dominant type in col " + i + " " + dominantType);
+			addDataTypeFound(dominantDataTypeInCol, dominantType);
+			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
+		}
+
+	}
+
+	/*
+	 * Method to add the datatype found to the collection of data types input: data
+	 * type found input 2: Hash Map where type will be added return: none
+	 */
+	public static void addDataTypeFound(Map<String, Integer> collectionOfDataTypes, String typefound) {
+		String intAlsoRecognisedAsFloat = "integer";
+		String floatType = "float";
+
+		if (collectionOfDataTypes.containsKey(typefound)) {
+			if (typefound.equalsIgnoreCase(intAlsoRecognisedAsFloat) == true) {
+				addDataTypeFound(collectionOfDataTypes, floatType);
+			}
+			collectionOfDataTypes.put(typefound, collectionOfDataTypes.get(typefound) + 1);
+		}
 		else {
-			// add the new type found to the hash map
-			hashMapToAddType.put(typefound, 1);
-
-		} // end else
+			if (typefound.equalsIgnoreCase(intAlsoRecognisedAsFloat) == true) {
+				addDataTypeFound(collectionOfDataTypes, floatType);
+			}
+			collectionOfDataTypes.put(typefound, 1);
+		}
 
 	}// end addToHashMap
+
+	/*
+	 * method to determine if the guessed type in the data is true
+	 */
+	public static void determineIfGuessedDataTypesIsTrue(List<Map<String, Integer>> dominantDataTypeInFirstGroup, List<Map<String, Integer>> dominantDataTypeFromSecondGroup) {
+		boolean isGuessedType = false;
+
+		for (int i = 0; i < dominantDataTypeFromSecondGroup.size(); i++) {
+			isGuessedType = dominantDataTypeFromSecondGroup.get(i).equals(dominantDataTypeInFirstGroup.get(i));
+
+			if (isGuessedType == true) {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+			} else {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+				System.out.println("Actual type for col " + i + " " + dominantDataTypeFromSecondGroup.get(i));
+				System.out.println("");
+			}
+		} // end for
+	}// end determineIfGuessedTypeIsTrue
 
 	/*
 	 * Method to find the respective data type that matches the string Respective
 	 * types is found by comparing it with regular expressions till a most suitable
 	 * match is found input: String return: type determined from the string
 	 */
-	public static String findType(String stringtomatch) {
-
-		// declare expressions to match
+	public static String findMatchingDataType(String stringWithoutDefinedDataType) {
 		String integer = "([0-9]+)";
 		String floatnum = "(\\d*\\.?\\d*)";
 		String date = "(0?[1-9]|1[012])[- \\/.](0?[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d";
 		String bool = "([Vv]+(erdade(iro)?)?|[Ff]+(als[eo])?|[Tt]+(rue)?|0|[\\+\\-]?1)";
 		String timestamp = "([0-1][0-9]|[2][0-3]):([0-5][0-9])";
-		String typeofString = "([a-zA-Z]+)";
+		String stringDataType = "([a-zA-Z]+)";
+		boolean hasMatchedToRegex = false;
+		String definedTypeForString = "String";
+		String[] regexTypes = { bool, timestamp, date, integer, floatnum, stringDataType };
 
-		boolean matched = false;
-		String stringtype = "String";
+		for (int i = 0; i < regexTypes.length; ++i) {
+			hasMatchedToRegex = stringWithoutDefinedDataType.matches(regexTypes[i]);
 
-		// create array for the type to be checked
-		String[] regextypes = { bool, timestamp, date, integer, floatnum, typeofString };
-
-		// determine the type in the string
-		for (int i = 0; i < regextypes.length; ++i) {
-
-			// check if the string matches any regex
-			matched = stringtomatch.matches(regextypes[i]);
-
-			// break out of the loop if the type matches
-			if (matched == true) {
-
-				if (regextypes[i] == date) {
-					stringtype = "date";
+			if (hasMatchedToRegex == true) {
+				if (regexTypes[i] == date) {
+					definedTypeForString = "date";
 				}
-				if (regextypes[i] == bool) {
-					stringtype = "bool";
+				if (regexTypes[i] == bool) {
+					definedTypeForString = "bool";
 				}
-				if (regextypes[i] == integer) {
-					stringtype = "integer";
+				if (regexTypes[i] == integer) {
+					definedTypeForString = "integer";
 				}
-				if (regextypes[i] == floatnum) {
-					stringtype = "float";
+				if (regexTypes[i] == floatnum) {
+					definedTypeForString = "float";
 				}
-				if (regextypes[i] == timestamp) {
-					stringtype = "time";
+				if (regexTypes[i] == timestamp) {
+					definedTypeForString = "time";
 				}
-				if (regextypes[i] == typeofString) {
-					stringtype = "String";
+				if (regexTypes[i] == stringDataType) {
+					definedTypeForString = "String";
 				}
-
-				return stringtype;
+				return definedTypeForString;
 
 			} // end if
-
 		} // end for
+		return definedTypeForString;
 
-		return stringtype;
+	}// end findMatchingDataType
 
-	}// end findType
-
-	/*
-	 * Method to process the Data when given an iterable String Process involves
-	 * returning the dominant data types in eahc col input : Iterable String i.e
-	 * Iterable<String[]> return: none
-	 */
-	public static void processData(ArrayList<String[]> iterableString) {
-
-		List<Map<String, Integer>> dataTypesInFristrows = new ArrayList<Map<String, Integer>>();
-		List<Map<String, Integer>> dataTypesInLastrows = new ArrayList<Map<String, Integer>>();
-		List<Map<String, Integer>> dominantTypeFirstrows = new ArrayList<Map<String, Integer>>();
-		List<Map<String, Integer>> dominantTypeLastrows = new ArrayList<Map<String, Integer>>();
-
-		Thread t1 = new Thread(() -> {
-			int firstThread = 1;
-
-			processThreads(iterableString, firstThread, dataTypesInFristrows, dominantTypeFirstrows);
-
-			System.out.println("Confirming guessed types...");
-			System.out.println("");
-
-		}); // end the first thread
-
-		Thread t2 = new Thread(() -> {
-
-			int secondThread = 2;
-
-			processThreads(iterableString, secondThread, dataTypesInLastrows, dominantTypeLastrows);
-
-			// compare the results from the 2 lists of hash tables created
-			for (int i = 0; i < dominantTypeLastrows.size(); i++) {
-
-				boolean match = dominantTypeLastrows.get(i).equals(dominantTypeFirstrows.get(i));
-
-				if (match == true) {
-					System.out.println("Guessed type for col "+ i + " matches? " + match);
-				}//end if
-				else {
-					System.out.println("Guessed type for col "+ i + " matches? " + match);
-					System.out.println("Actual type for col " + i + " " + dominantTypeLastrows.get(i));
-					System.out.println("");
-				}// end else
-
-			}// end for
-
-		}); // end the second thread
-
-		t1.start();
-		try {
-			Thread.sleep(4000);
-		} catch (Exception e) {
-		}
-		t2.start();
-
-	}// end processFile
-
-	public static boolean testCondition(OperatorClass op, int var1, int var2) {
+	public static boolean determineIfGreaterThanOrLessThan(OperatorClass op, int var1, int var2) {
 
 		OperatorClass optrClass = OperatorClass.GREATERTHAN;
 
@@ -186,95 +269,5 @@ public class DetectorClass {
 
 		return Boolean.valueOf(op.isLessThan(var1, var2));
 	}// end
-
-	public static void processThreads(ArrayList<String[]> iterableString, int threadNum,
-			List<Map<String, Integer>> listOfHashmaps, List<Map<String, Integer>> listOfDominantTypes) {
-
-		String typefound = "none yet";
-		int numrows = iterableString.size();
-		int numcols, postnInList, count, numElementsAccesed;
-		numcols = 0;
-		postnInList = 0;
-		count = 0;
-		numElementsAccesed = 0;
-		boolean conditionMet = true;
-		numrows = numrows / 3;
-		OperatorClass operator = OperatorClass.LESSTHAN;
-
-		if (threadNum == 2) {
-
-			operator = OperatorClass.GREATERTHAN;
-		}
-
-		// iterate through the iterable list
-		for (String[] i : iterableString) {
-
-			numcols = i.length;
-
-			for (String j : i) {
-
-				conditionMet = testCondition(operator, count, numrows);
-
-				if (conditionMet == true) {
-
-					typefound = findType(j);
-
-					if (numElementsAccesed >= numcols) {
-
-						addTypeToHashMap(listOfHashmaps.get(postnInList), typefound);
-						++postnInList;
-						if (postnInList >= numcols) {
-							postnInList = 0;
-						}
-					} else {
-
-						Map<String, Integer> colDataTypes = new HashMap<String, Integer>();
-						addTypeToHashMap(colDataTypes, typefound);
-						// add the hash map to the list
-						listOfHashmaps.add(numElementsAccesed, colDataTypes);
-
-					} // end else
-					numElementsAccesed++;
-				} // end if count
-			} // end for col
-			++count;
-		} // end for row
-
-		// print the elements in the list of col types
-		for (int i = 0; i < numcols; i++) {
-			System.out.println("For col " + i + listOfHashmaps.get(i));
-		}
-
-		System.out.println("");
-
-		// return the highest type for each list index
-		int highesttypenumber = 0;
-		String dominantTypes = "none yet";
-
-		for (int i = 0; i < listOfHashmaps.size(); i++) {
-
-			Map<String, Integer> highestTypeInEachCol = new HashMap<String, Integer>();
-
-			for (String datatype : listOfHashmaps.get(i).keySet()) {
-				Integer thetype = listOfHashmaps.get(i).get(datatype);
-
-				if (thetype > highesttypenumber) {
-					highesttypenumber = thetype;
-					dominantTypes = datatype;
-				}
-			}
-			System.out.println("The highest type in col " + i + " " + dominantTypes);
-			addTypeToHashMap(highestTypeInEachCol, dominantTypes);
-			listOfDominantTypes.add(i, highestTypeInEachCol);
-
-			// remove the current data in the hash map and reset the values for the next col
-			highestTypeInEachCol.clear();
-			highesttypenumber = 0;
-			dominantTypes  = "none yet";
-		}//end for
-
-		System.out.println(" ");
-
-	}// end process threads method
 
 }// end DetectorClass

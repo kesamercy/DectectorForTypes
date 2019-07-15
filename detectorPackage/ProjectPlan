@@ -1,10 +1,14 @@
 Changes made from last week:
-1.
+1. have parameters that would determine the split for what section of the data will go to the first thread and which will be at the second thread 
+2. change the names --- the varaible names for all the types in the file 
+3. the integers are now reconginzed as floats but the floats should not be recongzied as integers. remember the floats should still be able to read
+	the floats as an independent type. 
+4. scrapped regex
+5. Increased the rows and cols of the data. Program is starting to get slow.
+Some functions are also starting to break the more the data increases. Working on fixing this.
+6. go ahead and increase the num of rows ... do this till it starts to get really slow. 
+7. when it gets, slow, start using the profiler and see where the functions are slowing down and modify the implementation accordingly. 
 
-
-In progress:
-- dexi.io webscrapper but the output isn't the most accurate 
-- resolving to writing a simple script myself to do the scrapping. 
 
 Questions for Monday
    
@@ -21,21 +25,13 @@ To do next:
 - make the code elegant --- use lambda expressions to make the code elegant 
 
 things to do for this week
-1. change the names --- the varaible names for all the types in the file 
-	a. read the book about naming conventions and use that a guide for how to name your variables 
-2. have parameters that would determine the split for what section of the data will go to the first thread and which will be at the second thread 
-3. the integers should be reconginzed as floats but the floats should not be recongzied as integers. remember the floats should still be able to read
-	the floats as an independent type. 
-4. process threads is being called twice yet only half the data is needed for each call. modify this... 
-5. look up the difference bewteen an iterable and an iterator 
+
+4. process threads is being called twice yet only half the data is needed for each call. modify this...  
 6. use enums for the data type comparisons ---  what is this and how do i use this? how is it applicable to my case... 
 	a. what are enums for data types?
-7. for dexi.io, call the functions to decode the character for the stuff that dexi reads in wrong / poorly with the & stuff...  
-	a. or write a webscrapper to do the job much easier?
 8. Modify thread 1 instead of having it call test condition, have the count till it equals num rows for the first thread 
 9. start making the data sets bigger. increase the number of cols
-10. go ahead and increase the num of rows ... do this till it starts to get really slow. 
-11. when it gets, slow, start using the profiler and see where the functions are slowing down and modify the implementation accordingly. 
+
 12. document the changes made based on the profiler. 
 				
 				
