@@ -1,28 +1,29 @@
-			// determine the highest type from the hash table
-				int highesttypenum = 0;
-				String dominantType = "none yet";
+public static void addDataTypeFound(Map<String, Integer> collectionOfDataTypes, String typefound) {
 
-				for (String datatype : datatypes.keySet()) {
-					Integer thetype = datatypes.get(datatype);
-					if (thetype > highesttypenum) {
-						highesttypenum = thetype;
-						dominantType = datatype;
-					}
+		if (collectionOfDataTypes.containsKey(typefound)) {
+			if (typefound.equalsIgnoreCase("integer") == true) {
+				if (collectionOfDataTypes.containsKey("float")) {
+					collectionOfDataTypes.put("float", collectionOfDataTypes.get("float") + 1);
 				}
+				else {
 
-				System.out.println();
-				System.out.printf("the dominant type is '%s', %d times", dominantType, highesttypenum);
+					collectionOfDataTypes.put("float", 1);
+				}
+			}
+			collectionOfDataTypes.put(typefound, collectionOfDataTypes.get(typefound) + 1);
 
-				System.out.println();
-				System.out.println("type for col  " + i + datatypes);
+		} // end if
+		else {
+			if (typefound.equalsIgnoreCase("integer") == true) {
+				if (collectionOfDataTypes.containsKey("float")) {
+					collectionOfDataTypes.put("float", collectionOfDataTypes.get("float") + 1);
+				}
+				else {
 
-				// remove the current data in the hash map
-				datatypes.clear();
+					collectionOfDataTypes.put("float", 1);
+				}
+			}
+			collectionOfDataTypes.put(typefound, 1);
+		} // end else
 
-				// close the file
-				inputStream.close();
-
-			} // end for
-
-			// close the file for finding the number of cols
-			filecols.close();
+	}// end addToHashMap

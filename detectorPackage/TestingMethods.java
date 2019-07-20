@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class TestingMethods {
 
+	//test java enum classes here
+
 
 	public   TestingMethods() throws FileNotFoundException {
 		// TODO Auto-generated constructor stubb

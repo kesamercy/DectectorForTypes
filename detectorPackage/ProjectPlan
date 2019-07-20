@@ -1,18 +1,18 @@
 Changes made from last week:
-1. have parameters that would determine the split for what section of the data will go to the first thread and which will be at the second thread 
-2. change the names --- the varaible names for all the types in the file 
-3. the integers are now reconginzed as floats but the floats should not be recongzied as integers. remember the floats should still be able to read
-	the floats as an independent type. 
-4. scrapped regex
-5. Increased the rows and cols of the data. Program is starting to get slow.
-Some functions are also starting to break the more the data increases. Working on fixing this.
-6. go ahead and increase the num of rows ... do this till it starts to get really slow. 
-7. when it gets, slow, start using the profiler and see where the functions are slowing down and modify the implementation accordingly. 
+1. The number used to determine how the data is split is now automated. So the user determines that at the begining of the program and it's passed as a paramater to the function.
+2. Modified the varaible names and function names so they make more sense based on what they are suppsoed to do.
+3. The integers are now reconginzed as floats but the floats are not recongzied as integers. Which is what we want.
+4. Scrapped a lot of regular expressions in the process of implementing them into the fucntions. 
+5. I did increase the rows and cols for the data and the program is starting to get slow. I now know the functions that are taking the most time and I've started working on modifying 
+them to improve the performance. There's also bugs that are showing up the more the rows increase so I'm working on resolving that too. 
+
+These are the changes I have made and implemented based on what we talked about last week and I have implemented most of it, just wasn't able to get it all done this week
+because there's alot that we discussed that needs to change but I should have it all covered by next week. 
+
+We really don't have to meet since I'm still working through the changes we talked about so everything is still in progress and I havea good idea of what needs to change and be improved upon for the
+reamining parts. 
 
 
-Questions for Monday
-   
-   
 To do next:
 // this is being called way too many times, change this...
 				conditionMet = testCondition(operator, count, rowsInFirstThread);
@@ -30,7 +30,6 @@ things to do for this week
 6. use enums for the data type comparisons ---  what is this and how do i use this? how is it applicable to my case... 
 	a. what are enums for data types?
 8. Modify thread 1 instead of having it call test condition, have the count till it equals num rows for the first thread 
-9. start making the data sets bigger. increase the number of cols
 
 12. document the changes made based on the profiler. 
 				
