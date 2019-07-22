@@ -1,0 +1,31 @@
+Questions:
+
+1. how do i prompt the user to enter the 2 varaibles as the input arguments in the command line at the start of the program?
+
+2. for the second one, only way i can think of is for loop to skip those lines. Help me here!
+
+3. I can't think of any other way of getting the types and the regex into a list / array / hash map without manually doing it. 
+
+4. finding regx that will match float and integer 
+
+
+
+
+String intString = "4";
+
+		CSVParser otherparser = new CSVParser(new FileReader(args[2]), CSVFormat.DEFAULT.withHeader());
+
+//			for (DataTypes eachType : DataTypes.values()) {
+//				
+//				System.out.println("the first type ." + eachType);
+
+		for (CSVRecord csvRecord : otherparser) {
+			System.out.println("the first in record" + csvRecord.get(1));
+
+			if (intString.matches(csvRecord.get(1))) {
+
+				System.out.println("a match was found wooohhoo " + csvRecord.get(0));
+
+			}
+
+		}
