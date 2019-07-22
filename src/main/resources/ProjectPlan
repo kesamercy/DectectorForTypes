@@ -1,0 +1,9 @@
+Questions:
+
+2. for the second thread one, only way i can think of is for loop to skip those lines. Help me here!
+
+3. I can't think of any other way of getting the types and the regex into a list / array / hash map without manually doing it. 
+	I created a file instead. How's that?
+	
+4. I'm working on finding regx that will match float and integer so it's not manually input.
+
