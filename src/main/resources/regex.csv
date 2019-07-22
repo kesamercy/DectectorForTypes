@@ -37,7 +37,6 @@ Social Security Number - All Rules Enforced,^((?!000)(?!666)(?:[0-6]\d{2}|7[0-2]
 Querystring Parse,(?<=[\?|\&])(?<key>[^\?=\&\#]+)=?(?<value>[^\?=\&\#]*)
 https://testosteronesboosterweb.com/proshred-testo/,gtgtrh
 Pattern Title,/[^/]+$
-Script Block Parser,<script(?:(?:.*(?<src>(?<=src=")[^"]*(?="))[^>]*)|[^>]*)>(?<content>(?:(?:\n|.)(?!(?:\n|.)<script))*)</script>
 Phone Number,([+]?\d[ ]?[(]?\d{3}[)]?[ ]?\d{2,3}[- ]?\d{2}[- ]?\d{2})
 Diet Review: Advance Ketogenic Diet Pill for Weight Loss!,Diet Review: Advance Ketogenic Diet Pill for Weight Loss!
 Swedish personnummer with accepted foreigners,^[0-9]{6}-[0-9pPtTfF][0-9]{3}$
