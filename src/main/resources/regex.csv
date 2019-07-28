@@ -69,7 +69,6 @@ Pattern Title,(?=(?:[^\']*\'[^\']*\')*(?![^\']*\'))
 Cleaning HTML,<\/{0,1}(?!\/|b>|i>|p>|a\s|a>|br|em>|ol|li|strong>)[^>]*>
 Cleaning HTML,<\/{0,1}(?!\/|b>|i>|p>|a\s|a>|br|em>|ol|li|strong>)[^>]*>
 Pattern Title,&lt;/?(\w+)(\s*\w*\s*=\s*(&quot;[^&quot;]*&quot;|'[^']'|[^&gt;]*))*|/?&gt;
-Hyperlink,<a\s{1}href="(?<url>.*?)"(\s?target="(?<target>_(blank|new|parent|self|top))")?(\s?class="(?<class>.*?)")?(\s?style="(?<style>.*?)")?>(?<title>.*?)</a>
 Pattern Title,^(((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$
 Pattern Title,^(?![0-9]{6})[0-9a-zA-Z]{6}$
 Pattern Title,^[\n &lt;&quot;']*([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+)
