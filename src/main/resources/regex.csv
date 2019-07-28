@@ -150,7 +150,6 @@ VBScript functions,(?<=\s|:|&|\()(Abs|Array|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|
 VB/VBScript keyword,(?<=[\s=&\+\-,\(\)])(True|False|Nothing|Empty|Null)(?=[\s=&\+\-,\(\)])
 VB and VBscript operators,(?<=\s)(And|Or|Eqv|Imp|Is|Mod|Not|Xor)(?=\s)
 Trailing white spaces,[ \t]*?(?=\r?\n)
-Extract VBScript/VB code blocks,(?<Code>[\s\S]*?)(?<NonCode>'.*?\r?\n|(?<quot>"|')(?:(?:(?!\<quot>).|\<quot>{2})*)(?:\<quot>))
 VBScript and VB code blocks,(?<Code>[\s\S]*?)(?<Comment>'.*?\r?\n|(?<quot>"|')(?:(?:(?!\<quot>).|\<quot>{2})*)(?:\<quot>))
 Enhances the possible of one exercise session,Muscle XTX
 Portuguese Phone/Mobile number,((\+351|00351|351)?)(2\d{1}|(9(3|6|2|1)))\d{7}
