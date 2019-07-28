@@ -1,9 +1,42 @@
-Questions:
+way forward plan:
 
-2. for the second thread one, only way i can think of is for loop to skip those lines. Help me here!
 
-3. I can't think of any other way of getting the types and the regex into a list / array / hash map without manually doing it. 
-	I created a file instead. How's that?
-	
-4. I'm working on finding regx that will match float and integer so it's not manually input.
+4. think about a new implementaion for the threads / reading data.\
 
+things changed:
+1. change the name for the num to get from the user
+2. clean the data from the regex files
+3. get a regex to read floats and ints
+
+
+Notes:
+it's impossible to determine the fraction of data to examine without knowing the number of records in the data.
+i don't know any other way of getting the number of records in the file without loading them into memory. 
+for now, i thought moving on from an implementation that doesn't require the user to enter a number at
+the command line might be a tentative solution. 
+
+
+
+
+
+trick for the second batch is :
+
+1. if goal is to get immediate response, then you might not need to use threads... you can usethe 
+same iterator for both threads.....
+
+
+2. have one thread for reading the data and then other worker threads to process the data.
+DataStrucrure  that can help with this..... check rocket chat for the link to this...
+
+3. One of the queue impelementations for the data from the threads......
+reader and worker threads is this method
+isolate code needed to read and isolate the code needed to process the records. 
+trick is to keep them in sync, the threads would be reading in the data at the same time
+
+
+
+hack: split the data in a different 
+have the 2 threads take in turns in reading the rows. one thread reads even rows, other thread reads odd rows. 
+each thread would have it's own iterator....
+
+- skip lines... 
