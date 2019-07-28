@@ -214,7 +214,6 @@ Pattern Title,(?&lt;entryname&gt;[\w_0-9]+)\s*=\s+\(\s*DESCRIPTION\s*=\s+\(\s*AD
 Pattern Title,^(atuvwdxyzad|abcefdghijd|almnodpqrsd|aß?ded???µd?p?sd)(ktuvwdxyzad|kbcefdghijd|klmnodpqrsd|kß?ded???µd?p?sd)*
 Pattern Title,^[1-9]{1}[0-9]{3}\s?[A-Z]{2}$
 Pattern Title,^([0-1]?\d|2[0-3]):([0-5]\d)$
-Parse HTML images,"<[ \t]*[iI][mM][gG][ \t]*[sS][rR][cC][ \t]*=[ \t]*['\"]([^'\"]+)"
 Pattern Title,^([a-zA-Z][a-zA-Z\&amp;amp;\-\.\'\s]*|)$
 https://skincaresfreetrial.com/laleur-cream/,5
 Comprehensive hyperlink URL,^(((?:(?:f|ht)tps?(?!\:\/\/[-\.\w]+@)|mailto(?=\:\/\/[-\.\w]+@))\:\/\/)?(?:((?:(?:(?:2(?:[0-4]\d|5[0-5])|[01]?\d?\d))(?:\.(?:2(?:[0-4]\d|5[0-5])|[01]?\d?\d)){3})|(?:(?:[a-zA-Z0-9](?:[-\w]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(?:(?:\/[-\w]+(?=\/))*)?)|(?:[0-9a-zA-Z](?:[-.\w]*[0-9a-zA-Z])?@(?:[0-9a-zA-Z](?:[-\w]*[0-9a-zA-Z])?\.)+[a-zA-Z]{2,6}(?![\/\?])))(\/[-\w]+)?(?:(?<=\w)\.([a-zA-Z0-9]{2,4}))?(?:(?<=\w)\?([a-zA-Z][-\w]*=[-\w]+(?:&[a-zA-Z][-\w]*=[-\w]+)*))?))$
