@@ -10,7 +10,6 @@ Pattern Title,&lt;a\s*href=(.*?)[\s|&gt;]
 ISBN,/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/
 Single Email Match - current June 2010,^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)$
 International & Domestic Phone Numbers with Ext,^([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)$
-https://aneurevitalizingcream.com/loriax-face-cream-at/,gdrbfg
 Date Match,^(d{0}|(31(?!(FEB|APR|JUN|SEP|NOV)))|((30|29)(?!FEB))|(29(?=FEB(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))|(29(?=FEB(((0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))|(0?[1-9])|1\d|2[0-8])(JAN|FEB|MAR|MAY|APR|JUL|JUN|AUG|OCT|SEP|NOV|DEC)((1[6-9]|[2-9]\d)\d{2}|\d{2}|d{0})$
 Scientific Notation,^(-?[1-9](\.\d+)?)((\s?[X*]\s?10[E^]([+-]?\d+))|(E([+-]?\d+)))$
 RGB color format,^(?:(?:^|,\s*)([01]?\d\d?|2[0-4]\d|25[0-5])){3}$
@@ -19,7 +18,6 @@ Pattern Title,^([a-zA-Z '-]+)$
 FQDN for DNS configuration tool,^(?=^.{1,254}$)(^(?:(?!\.|-)([a-z0-9\-\*]{1,63}|([a-z0-9\-]{1,62}[a-z0-9]))\.)+(?:[a-z]{2,})$)$
 Number,^\s*[+-]?\s*(?:\d{1,3}(?:(,?)\d{3})?(?:\1\d{3})*(\.\d*)?|\.\d+)\s*$
 AW Short Coordinate,^[0-9]+[NnSs] [0-9]+[WwEe]$
-https://purelifegreencoffeebeanadvice.com/renewiderm/,5
 Allow Decimal only,^\d*[0-9](|.\d*[0-9]|)*$
 Pattern Title,(?s)( class=\w+(?=([^&lt;]*&gt;)))|(&lt;!--\[if.*?&lt;!\[endif\]--&gt;)|(&lt;!\[if !\w+\]&gt;)|(&lt;!\[endif\]&gt;)|(&lt;o:p&gt;[^&lt;]*&lt;/o:p&gt;)|(&lt;span[^&gt;]*&gt;)|(&lt;/span&gt;)|(font-family:[^&gt;]*[;'])|(font-size:[^&gt;]*[;'])(?-s)
 Pattern Title,^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w ]*.*))+\.((html|HTMFacebook support number, Facebook phone number, Facebook tech support number, 24/7 USA
@@ -35,7 +33,6 @@ Pattern Title,^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$
 Head Parser,(<meta [.\w\W]*?\>)|(<style [.\w\W]*?</style>)|(<link [.\w\W]*?\>)|(<script [.\w\W]*?</script>)
 Social Security Number - All Rules Enforced,^((?!000)(?!666)(?:[0-6]\d{2}|7[0-2][0-9]|73[0-3]|7[5-6][0-9]|77[0-2]))-((?!00)\d{2})-((?!0000)\d{4})$
 Querystring Parse,(?<=[\?|\&])(?<key>[^\?=\&\#]+)=?(?<value>[^\?=\&\#]*)
-https://testosteronesboosterweb.com/proshred-testo/,gtgtrh
 Pattern Title,/[^/]+$
 Phone Number,([+]?\d[ ]?[(]?\d{3}[)]?[ ]?\d{2,3}[- ]?\d{2}[- ]?\d{2})
 Diet Review: Advance Ketogenic Diet Pill for Weight Loss!,Diet Review: Advance Ketogenic Diet Pill for Weight Loss!
@@ -44,14 +41,11 @@ Date Validation Expression,^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2
 Pattern Title,^[A-Za-z]{1,2}[\d]{1,2}([A-Za-z])?\s?[\d][A-Za-z]{2}$
 Linux Uptime Command,/^([0-2][0-9]\:[0-5][0-9]\:[0-5][0-9])\s+up\s+([0-9\:]{1,5})\s*(days|day|min|mins)?(?:\,\s+([0-9\:]{1,5})\s*(days|day|min|mins)?)?\,\s+([0-9]{1,4})\susers?\,\s+load\s+average\:\s+([0-9\.]{1,6})\,\s+([0-9\.]{1,6})\,\s+([0-9\.]{1,6})$/
 Pattern Title,^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?
-monclershops,monclershops
 A Liberal, Accurate Pattern for Matching URLs,\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))
 For Accepting only Indian mobile numbers with exactly 10 Digits or blank,^[89][0-9]{9}
 Accepts everything except Zero and Double Zeros(0,00 are invalid Values),[0][^0]|([^0]{1}(.){1})|[^0]*
 Duration time,^[0-9]+\.?[0-9]?[0-9]?[0,5]?$
 Strong password,((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,50})
-https://snaptube.zone/dj-do-baile-toca-aquela-mc-novinho-mp3-musica-baixar/,fgvrdg
-http://tubemate.zone/ce-ta-gostosinha-benny-e-brenno-mp3-musica-baixar/,drgbvrtgtr
 Indian Mobile No,^((\+){0,1}91(\s){0,1}(\-){0,1}(\s){0,1}){0,1}9[0-9](\s){0,1}(\-){0,1}(\s){0,1}[1-9]{1}[0-9]{7}$
 Percentage,Percentage allowing upto 4 places of decimal
 Pattern Title,^[1-9][0-9]{3}\s?[a-zA-Z]{2}$
@@ -86,7 +80,6 @@ Simple Email Pattern Test,^[a-z]+([\d_-]*[a-z]+)*@[a-z]{2,}(\.)[a-z]{2,}(\.[a-z]
 Apple Repair Center Australia,apple service center
 Pattern Title,^\$[+-]?([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(\.[0-9]{1,2})?$
 URl Domain names,^http[s]?://([a-zA-Z0-9\-]+\.)*([a-zA-Z]{3,61}|[a-zA-Z]{1,}\.[a-zA-Z]{2})/.*$
-https://creatine.wheretobuyy.com/,https://creatine.wheretobuyy.com/
 PESEL,[0-9]{4}[0-3]{1}[0-9}{1}[0-9]{5}
 Web URL Validation RegEx,^(http(s?)\:\/\/)?(www.)?(([A-Za-z]+)([0-9]+)?([A-Za-z0-9\.\_\-]+)?)(\.)(([a-zA-Z]{2,})([0-9a-zA-Z]+)?)(\:\d{0,5})?(\/|(\/[A-Za-z]+([a-zA-Z0-9]+)?)+)?(\?[a-zA-Z0-9\\\&\%\_\.\/\-\=\~\*]+)?$
 USZ Zip Code Validation,^(\d{5})([\-\ ]\d{4})?$
@@ -102,20 +95,16 @@ Test,+919433736446
 Pattern Title,&lt;[^&gt;]*\n?.*=(&quot;|')?(.*\.jpg)(&quot;|')?.*\n?[^&lt;]*&gt;
 Valid directory only path,([A-Z]:\\[^/:\*;\/\:\?<>\|]+)|(\\{2}[^/:\*;\/\:\?<>\|]+)
 Serial from BIND zone file's SOA,(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\.?\t*\s*){2}\(\r*\n*([0-9]{1,})
-test,1234
 Pattern Title,^([a-zA-Z.\s']{1,50})$
 Usercode,TIS-12-123
 Allowing only single space in between two words,([a-zA-Z]{1}[a-zA-Z]*[\s]{0,1}[a-zA-Z])+([\s]{0,1}[a-zA-Z]+)
 Indian PAN,^[A-Z]{5}[0-9]{4}[A-Z]{1}$
 French postal address,((^[0-9]*).?((BIS)|(TER)|(QUATER))?)?((\W+)|(^))(([a-z]+.)*)([0-9]{5})?.(([a-z\'']+.)*)$
-plus,A + B
-https://musclebuildingbuy.com/blue-pearl-male-enhancement/,grdfgr
 Generic Credentials,username=(.*)&password=(.*)
 email,\b[A-z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b
 ukrainian phone numbers,^((8|\+38)-?)?(\(?044\)?)?-?\d{3}-?\d{2}-?\d{2}$
 MS Project-like Duration Input Validation,^(([0-9]{1})|([0-9]{1}[0-9]{1})|([1-3]{1}[0-6]{1}[0-5]{1}))d(([0-9]{1})|(1[0-9]{1})|([1-2]{1}[0-3]{1}))h(([0-9]{1})|([1-5]{1}[0-9]{1}))m$
 Pattern Title,^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*\s+&lt;(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})&gt;$|^(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})$
-Compelet Ihren Traum von der Romanze mit Kamagra bestellen Medizin.,Kamagra für häufigste sexuelle Problem bei Männern
 YAER - Yet Another Email Regex,^[^\s]+@[^\.][^\s]{1,}\.[A-Za-z]{2,10}$
 Email,^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$
 Number,^[-]?([1-9]{1}[0-9]{0,}(\.[0-9]{0,2})?|0(\.[0-9]{0,2})?|\.[0-9]{1,2})$
@@ -132,7 +121,6 @@ Phone Numbers,^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\
 Resale License Number (CA),^((([sS][r-tR-Tx-zX-Z])\s*([sx-zSX-Z])?\s*([a-zA-Z]{2,3}))?\s*(\d\d)\s*-?\s*(\d{6,7}))$
 Web Colors (216),^#?(([fFcC0369])\2){3}$
 Color Hex,^#(\d{6})|^#([A-F]{6})|^#([A-F]|[0-9]){6}
-https://bettercoloncleansingguide.com/pure-prime-garcinia-cambogia/,dgbdfh
 Pattern Title,^\s*([\(]?)\[?\s*\d{3}\s*\]?[\)]?\s*[\-]?[\.]?\s*\d{3}\s*[\-]?[\.]?\s*\d{4}$
 Pattern Title,^[A-Z]{2}[0-9]{6}[A-DFM]{1}$
 Pattern Title,^[A-Z]{1,2}[1-9][0-9]?[A-Z]? [0-9][A-Z]{2,}|GIR 0AA$
@@ -140,7 +128,6 @@ Token Words,(\$(([0-9]?)[a-zA-Z]+)([0-9]?))
 Strip RTF Formatting,^\{(.+)|^\\(.+)|(\}*)
 Email Validations,^([a-zA-Z0-9][a-zA-Z0-9_]*(\.{0,1})?[a-zA-Z0-9\-_]+)*(\.{0,1})@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|([a-zA-Z0-9\-]+(\.([a-zA-Z]{2,10}))(\.([a-zA-Z]{2,10}))?(\.([a-zA-Z]{2,10}))?))[\s]*$
 Only Characters,/^[a-zA-Z\s]+$/
-https://blog.pillsforweightloss.club/male-extra-philippines/,https://blog.pillsforweightloss.club/male-extra-philippines/
 Pattern Title,^(?&lt;path&gt;(/?(?&lt;step&gt;\w+))+)(?&lt;predicate&gt;\[(?&lt;comparison&gt;\s*(?&lt;lhs&gt;@\w+)\s*(?&lt;operator&gt;&lt;=|&gt;=|&lt;&gt;|=|&lt;|&gt;)\s*(?&lt;rhs&gt;('[^']*'|&quot;[^&quot;]*&quot;))\s*(and|or)?)+\])*$
 Pattern Title,^[a-zA-Z][0-9][a-zA-Z]\s?[0-9][a-zA-Z][0-9]$
 Pattern Title,^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$
@@ -149,17 +136,11 @@ ASP members; -properties, -collections, -methods,(?<=(?:\n|:|&|\()\s*?)(Applicat
 VBScript functions,(?<=\s|:|&|\()(Abs|Array|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|Chr|CInt|CLng|Conversions|Cos|CreateObject|CSng|CStr|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Date|Day|DerivedMath|Escape|Eval|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Maths|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|ScriptEngineBuildVersion|ScriptEngineMajorVersion|ScriptEngineMinorVersion|ScriptEngine|Second|SetLocale|Sgn|Sin|Space|Split|Sqr|StrComp|String|StrReverse|Tan|Timer|TimeSerial|TimeValue|Time|TypeName|UBound|UCase|Unescape|VarType|WeekdayName|Weekday|Year)(?=\()
 VB/VBScript keyword,(?<=[\s=&\+\-,\(\)])(True|False|Nothing|Empty|Null)(?=[\s=&\+\-,\(\)])
 VB and VBscript operators,(?<=\s)(And|Or|Eqv|Imp|Is|Mod|Not|Xor)(?=\s)
-Trailing white spaces,[ \t]*?(?=\r?\n)
-VBScript and VB code blocks,(?<Code>[\s\S]*?)(?<Comment>'.*?\r?\n|(?<quot>"|')(?:(?:(?!\<quot>).|\<quot>{2})*)(?:\<quot>))
-Enhances the possible of one exercise session,Muscle XTX
 Portuguese Phone/Mobile number,((\+351|00351|351)?)(2\d{1}|(9(3|6|2|1)))\d{7}
-https://musicpleer.zone/1st-day-out-no-plug-mp3-song-download/,frgvr
 Pattern Title,^((((19|20)(([02468][048])|([13579][26]))-02-29))|((20[0-9][0-9])|(19[0-9][0-9]))-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))$
 Pattern Title,^\\(\\[\w-]+){1,}(\\[\w-()]+(\s[\w-()]+)*)+(\\(([\w-()]+(\s[\w-()]+)*)+\.[\w]+)?)?$
-https://snaptube.zone/warrior-jatt-gagan-kokri-mp3-song-download/,swadcef
 Kenyan Mobile Phone Numbers,^(?:\+254|254)(\d{9})$
 EU currency,^\€?(\d{1,3}[.](\d{3}[.])*\d{3}|\d+)([,]\d{1,2})?$
-https://mylaviveeyeserum.com/testo-ampx/,fef
 Slovenian (Mobile) phone number,^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))$
 Remove icon data from Firefox bookmark files,ICON="[^"]+"
 Spelling mistakes in Last Name,^\w+\W+(\w+)([a-z])(\w+)\s\&\s\w+\W+\1(?!\2)[a-z]\3$
@@ -184,19 +165,15 @@ Open Body Tag Good for analytic implementaiton,<body[\d\sa-z\W\S\s]*>
 Pattern Title,^[A-Za-z]{3,4}[ |\-]{0,1}[0-9]{6}[ |\-]{0,1}[0-9A-Za-z]{3}$
 Pattern Title,^[A-Za-z]{4}[ |\-]{0,1}[0-9]{6}[ |\-]{0,1}[0-9A-Za-z]{3}$
 Pattern Title,^\[assembly: AssemblyVersion\(\&quot;([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)
-Quicken Contact Help,1
-What to eat to gain weight?,1
 Pattern Title,\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}
 Pattern Title,(SELECT\s[\w\*\)\(\,\s]+\sFROM\s[\w]+)| (UPDATE\s[\w]+\sSET\s[\w\,\'\=]+)| (INSERT\sINTO\s[\d\w]+[\s\w\d\)\(\,]*\sVALUES\s\([\d\w\'\,\)]+)| (DELETE\sFROM\s[\d\w\'\=]+)
 Numeric expression,^[-+]?\d+(\.\d)?\d*$
 Date validation,\b([0]?[1-9]|[1,2]\d|3[0,1])[-/]([0]?[1-9]|[1][0,1,2])[-/](\d{1,2}|[1][9]\d\d|[2][0]\d\d)\b
 Phone Saudi Arabia,^(\d{5}-\d{2}-\d{7})*$
-https://testosteronesboosterweb.com/primal-factor/,gvdgbfhd
 Image File Extension,.*(\.[Jj][Pp][Gg]|\.[Gg][Ii][Ff]|\.[Jj][Pp][Ee][Gg]|\.[Pp][Nn][Gg])
 Price,^[$]?[0-9]*(\.)?[0-9]?[0-9]?$
 Pattern Title,[A-Z][a-z]+
 Street Types,A(?:CCESS|LLEY|PPROACH|R(?:CADE|TERY)|VE(?:NUE)?)|B(?:A(?:NK|SIN|Y)|E(?:ACH|ND)|L(?:DG|VD)|O(?:ULEVARD|ARDWALK|WL)|R(?:ACE|AE|EAK|IDGE|O(?:ADWAY|OK|W))|UILDING|YPASS)|C(?:A(?:NAL|USEWAY)|ENTRE(?:WAY)?|HASE|IRC(?:LET?|U(?:IT|S))|L(?:OSE)?|O(?:MMON|NCOURSE|PSE|R(?:NER|SO)|UR(?:SE|T(?:YARD)?)|VE)|R(?:ES(?:CENT|T)?|IEF|OSS(?:ING)?)|U(?:LDESAC|RVE))|D(?:ALE|EVIATION|IP|OWNS|R(?:IVE(?:WAY)?)?)|E(?:ASEMENT|DGE|LBOW|N(?:D|TRANCE)|S(?:PLANADE|TATE)|X(?:P(?:(?:RESS)?WAY)|TENSION))|F(?:AIRWAY|IRETRAIL|O(?:LLOW|R(?:D|MATION))|R(?:(?:EEWAY|ONT(?:AGE)?)))|G(?:A(?:P|RDENS?|TE(?:S|WAY)?)|L(?:ADE|EN)|R(?:ANGE|EEN|O(?:UND|VET?)))|H(?:AVEN|E(?:ATH|IGHTS)|I(?:GHWAY|LL)|UB|WY)|I(?:NTER(?:CHANGE)?|SLAND)|JUNCTION|K(?:EY|NOLL)|L(?:A(?:NE(?:WAY)?)?|IN(?:E|K)|O(?:O(?:KOUT|P)|WER))|M(?:ALL|E(?:A(?:D|NDER)|WS)|OTORWAY)|NOOK|O(?:UTLOOK|VERPASS)|P(?:A(?:R(?:ADE|K(?:LANDS|WAY)?)|SS|TH(?:WAY)?)|DE|IER|L(?:A(?:CE|ZA))?|O(?:CKET|INT|RT)|RO(?:MENADE|PERTY)|URSUIT)?|QUA(?:D(?:RANT)?|YS?)|R(?:AMBLE|D|E(?:ACH|S(?:ERVE|T)|T(?:REAT|URN))|I(?:D(?:E|GE)|NG|S(?:E|ING))|O(?:AD(?:WAY)?|TARY|U(?:ND|TE)|W)|UN)|S(?:(?:ER(?:VICE)?WAY)|IDING|LOPE|PUR|QUARE|T(?:EPS|RAND|R(?:EET|IP))?|UBWAY)|T(?:ARN|CE|ERRACE|HRO(?:UGHWAY|WAY)|O(?:LLWAY|P|R)|RA(?:CK|IL)|URN)|UNDERPASS|V(?:AL(?:E|LEY)|I(?:EW|STA))|W(?:A(?:LK(?:WAY)?|Y)|HARF|YND)
-Date, European Standard (with Slashes),^(?:(?:0?[1-9])|(?:[12]\d)|3[01])/(?:(?:0?[1-9])|(?:1[012]))/(?:(?:19|20))\d{2}$
 DateTime ISO8601 Parser,/(\d{4})-?(\d{2})-?(\d{2})[T\s]?(\d{2}):?(\d{2})(?::?(\d{2})(\.\d+)?)?(Z|(?:([+-]\d{2})(?::?(\d{2}))?))?/i
 Pattern Title,(?:\s*)(?<=[-|/])(?<name>\w*)[:|=]("((?<value>.*?)(?<!\\)")|(?<value>[\w]*))
 Extract Sub Domains from master DNS file,^([\w\-\.]+)\s.*$
@@ -204,14 +181,11 @@ Open Body Tag Good for analytic implementaiton,<body[\d\sa-z\W\S\s]*>
 Pattern Title,^[A-Za-z]{3,4}[ |\-]{0,1}[0-9]{6}[ |\-]{0,1}[0-9A-Za-z]{3}$
 Pattern Title,^[A-Za-z]{4}[ |\-]{0,1}[0-9]{6}[ |\-]{0,1}[0-9A-Za-z]{3}$
 Pattern Title,^\[assembly: AssemblyVersion\(\&quot;([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)
-Quicken Contact Help,1
-What to eat to gain weight?,1
 Pattern Title,\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}
 Pattern Title,(SELECT\s[\w\*\)\(\,\s]+\sFROM\s[\w]+)| (UPDATE\s[\w]+\sSET\s[\w\,\'\=]+)| (INSERT\sINTO\s[\d\w]+[\s\w\d\)\(\,]*\sVALUES\s\([\d\w\'\,\)]+)| (DELETE\sFROM\s[\d\w\'\=]+)
 Numeric expression,^[-+]?\d+(\.\d)?\d*$
 Date validation,\b([0]?[1-9]|[1,2]\d|3[0,1])[-/]([0]?[1-9]|[1][0,1,2])[-/](\d{1,2}|[1][9]\d\d|[2][0]\d\d)\b
 Phone Saudi Arabia,^(\d{5}-\d{2}-\d{7})*$
-https://testosteronesboosterweb.com/primal-factor/,gvdgbfhd
 Image File Extension,.*(\.[Jj][Pp][Gg]|\.[Gg][Ii][Ff]|\.[Jj][Pp][Ee][Gg]|\.[Pp][Nn][Gg])
 Price,^[$]?[0-9]*(\.)?[0-9]?[0-9]?$
 Pattern Title,[A-Z][a-z]+
@@ -220,7 +194,6 @@ Pattern Title,^[2-9]\d{2}-\d{3}-\d{4}$
 Pattern Title,^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$
 One Numeric Digit,^\d$
 Five Integer US ZIP Code,^\d{5}$
-ZIP+4 - XXXXX-XXXX,^\d{5}-\d{4}$
 US ZIP (5 or 5+4),^\d{5}$|^\d{5}-\d{4}$
 Pattern Title,((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}
 Pattern Title,[\w-]+@([\w-]+\.)+[\w-]+
@@ -237,9 +210,7 @@ Pattern Title,\.com/(\d+)$
 Pattern Title,^([\s\S]){1,20}([\s\.])
 Parse HTML images,"<[ \t]*[iI][mM][gG][ \t]*[sS][rR][cC][ \t]*=[ \t]*['\"]([^'\"]+)"
 Pattern Title,^([a-zA-Z][a-zA-Z\&amp;amp;\-\.\'\s]*|)$
-https://skincaresfreetrial.com/laleur-cream/,5
 Comprehensive hyperlink URL,^(((?:(?:f|ht)tps?(?!\:\/\/[-\.\w]+@)|mailto(?=\:\/\/[-\.\w]+@))\:\/\/)?(?:((?:(?:(?:2(?:[0-4]\d|5[0-5])|[01]?\d?\d))(?:\.(?:2(?:[0-4]\d|5[0-5])|[01]?\d?\d)){3})|(?:(?:[a-zA-Z0-9](?:[-\w]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(?:(?:\/[-\w]+(?=\/))*)?)|(?:[0-9a-zA-Z](?:[-.\w]*[0-9a-zA-Z])?@(?:[0-9a-zA-Z](?:[-\w]*[0-9a-zA-Z])?\.)+[a-zA-Z]{2,6}(?![\/\?])))(\/[-\w]+)?(?:(?<=\w)\.([a-zA-Z0-9]{2,4}))?(?:(?<=\w)\?([a-zA-Z][-\w]*=[-\w]+(?:&[a-zA-Z][-\w]*=[-\w]+)*))?))$
-https://www.seremolynbuy.com/jouliage/,fsedgsdrhgtr
 UK Phone # with International option,^\s*\(?((\+0?44)?\)?[ \-]?(\(0\))|0)((20[7,8]{1}\)?[ \-]?[1-9]{1}[0-9]{2}[ \-]?[0-9]{4})|([1-8]{1}[0-9]{3}\)?[ \-]?[1-9]{1}[0-9]{2}[ \-]?[0-9]{3}))\s*$
 TSQL identifier,(?:\[(?:[\u0000-\u005C]|[\u005E-\uFFFF]|\]\])+\])|(?:\u0022(?:[\u0000-\u0021]|[\u0023-\uFFFF]|\u0022\u0022)+\u0022)|(?:[a-zA-Z_][a-zA-Z0-9_]*)
 Pattern Title,(^\d{5}\-\d{3}$)|(^\d{2}\.\d{3}\-\d{3}$)|(^\d{8}$)
