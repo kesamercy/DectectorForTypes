@@ -142,7 +142,6 @@ Pattern Title,^\\(\\[\w-]+){1,}(\\[\w-()]+(\s[\w-()]+)*)+(\\(([\w-()]+(\s[\w-()]
 Kenyan Mobile Phone Numbers,^(?:\+254|254)(\d{9})$
 EU currency,^\€?(\d{1,3}[.](\d{3}[.])*\d{3}|\d+)([,]\d{1,2})?$
 Slovenian (Mobile) phone number,^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))$
-Remove icon data from Firefox bookmark files,ICON="[^"]+"
 Spelling mistakes in Last Name,^\w+\W+(\w+)([a-z])(\w+)\s\&\s\w+\W+\1(?!\2)[a-z]\3$
 Spelling mistakes in Last Name-1,^\w+\W+[a-z]\W+(\w+)([a-z])(\w+)\s\&\s\w+\W+[a-z]\W+\1(?!\2)[a-z]\3$
 INI Key/Value match,^(?:(?<key>.+?)\s*?=\s*?(?<value>\S.+?)\s*)$
