@@ -1,26 +1,27 @@
 way forward plan:
-3. re-organise the functions and test to see if they work correctly. might add a print function
-
+- reorganised the files. going to rename them and then test... if test works, then move on to the version2 of the implementation
 4b. read threads that use the worker and reader thread implementation
-5.  research on different csvparser to use so that you can know the number of elements in the file so that you determine the fraction to be read by the user 
+5.  research on different csvparser to use so that you can know the number of elements in the file so that you determine the fraction to be read by the user
 
 
 things changed:
 1. change the name for the num to get from the user
 2. clean the data from the regex files
 3. get a regex to read floats and ints
-4. start implementing to get the first thread to read odd numbers from the file 
-	- research how to get the parser to only read the odd numbers 
+4. start implementing to get the first thread to read odd numbers from the file
+	- research how to get the parser to only read the odd numbers
 5.  make sure the threads method still reads the correct number for the thread num passed
 4a. implement the threads that read odd and even
-	
+3. re-organise the functions and test to see if they work correctly. might add a print function
+
+
 
 
 Notes:
 it's impossible to determine the fraction of data to examine without knowing the number of records in the data.
-i don't know any other way of getting the number of records in the file without loading them into memory. 
+i don't know any other way of getting the number of records in the file without loading them into memory.
 for now, i thought moving on from an implementation that doesn't require the user to enter a number at
-the command line might be a tentative solution. 
+the command line might be a tentative solution.
 
 
 
@@ -28,7 +29,7 @@ the command line might be a tentative solution.
 
 trick for the second batch is :
 
-1. if goal is to get immediate response, then you might not need to use threads... you can usethe 
+1. if goal is to get immediate response, then you might not need to use threads... you can usethe
 same iterator for both threads.....
 
 
@@ -37,13 +38,13 @@ DataStrucrure  that can help with this..... check rocket chat for the link to th
 
 3. One of the queue impelementations for the data from the threads......
 reader and worker threads is this method
-isolate code needed to read and isolate the code needed to process the records. 
+isolate code needed to read and isolate the code needed to process the records.
 trick is to keep them in sync, the threads would be reading in the data at the same time
 
 
 
-hack: split the data in a different 
-have the 2 threads take in turns in reading the rows. one thread reads even rows, other thread reads odd rows. 
+hack: split the data in a different
+have the 2 threads take in turns in reading the rows. one thread reads even rows, other thread reads odd rows.
 each thread would have it's own iterator....
 
-- skip lines... 
+- skip lines...

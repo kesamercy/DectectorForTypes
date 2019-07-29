@@ -26,9 +26,9 @@ public class DetectDataTypes {
 		INTEGER, FLOAT, DATE, BOOLEAN, TIME, STRING;
 		//comparing enums is much faster... than comparing the strings....
 		//this is better in the long run...
-		
+
 		//think about replacing the line number in the REGEX file... so that it's much faster
-		//the line number can be traced back to the file with enum. 
+		//the line number can be traced back to the file with enum.
 	}
 
 	public static String regexFilePath = "none yet";
@@ -37,8 +37,7 @@ public class DetectDataTypes {
 	public static String filePathToData = "none yet";
 	public static ArrayList<List<Map<String, Integer>>> collectionOfDataTypesPerGroupOfData = new ArrayList<List<Map<String, Integer>>>();
 	public static Thread[] threadPerDataGroup = new Thread[GROUPSOFDATA];
-	public static ArrayList<Map<String, Integer>> sortedDataTypes = new ArrayList<Map<String, Integer>>();
-	
+
 
 	public static void main(String[] args) throws IOException {
 		filePathToData = args[0];
@@ -47,54 +46,14 @@ public class DetectDataTypes {
 		fractionOfRecordsInFirstGroup = Integer.parseInt(numToDivideDataIntoTwoGroups);
 
 		guessDataTypesInEachColumn();
-		
-		//compare the results in the collectionOfDataTypesPerGroupOfData and return the greatest or not	
+
+		//compare the results in the collectionOfDataTypesPerGroupOfData and return the greatest or not
 	}// end main
-	
-	public static void determineDominantTypePerGroupOfData(List<Map<String, Integer>> dataTypesInGroupOfData,
-			List<Map<String, Integer>> dominantDataTypeInGroupOfData) {
-		int frequencyOfDominantType = 0;
-		String dominantType = "none yet";
-
-		for (int i = 0; i < dataTypesInGroupOfData.size(); i++) {
-			frequencyOfDominantType = 0;
-			dominantType = "none yet";
-			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
-
-			for (String currentDataType : dataTypesInGroupOfData.get(i).keySet()) {
-				Integer frequencyOfCurrentType = dataTypesInGroupOfData.get(i).get(currentDataType);
-				if (frequencyOfCurrentType > frequencyOfDominantType) {
-					frequencyOfDominantType = frequencyOfCurrentType;
-					dominantType = currentDataType;
-				}
-			}
-			System.out.println("The dominant type in col " + i + " " + dominantType);
-			dominantDataTypeInCol.put(dominantType, frequencyOfDominantType);
-			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
-		}
-
-	}
-	
-	public static void determineIfGuessedDataTypesIsTrue(List<Map<String, Integer>> dominantDataTypeInFirstGroup, List<Map<String, Integer>> dominantDataTypeFromSecondGroup) {
-		boolean isGuessedType = false;
-
-		for (int i = 0; i < dominantDataTypeFromSecondGroup.size(); i++) {
-			isGuessedType = dominantDataTypeFromSecondGroup.get(i).equals(dominantDataTypeInFirstGroup.get(i));
-
-			if (isGuessedType == true) {
-				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
-			} else {
-				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
-				System.out.println("Actual type for col " + i + " " + dominantDataTypeFromSecondGroup.get(i));
-				System.out.println("");
-			}
-		} // end for
-	}// end determineIfGuessedTypeIsTrue
 
 	public static void guessDataTypesInEachColumn() {
 		for (int i = 0; i < threadPerDataGroup.length; i++) {
 
-			//think about how to implement the thread numbers 
+			//think about how to implement the thread numbers
 			threadPerDataGroup[i] = new Thread(() -> {
 				int threadNum = 0;
 				int numTimesFunctionHasExecuted = 0;
@@ -126,19 +85,19 @@ public class DetectDataTypes {
 		List<String> datatypesMatched = null;
 		List<Map<String, Integer>> listOfDataTypesPerColumn = null;
 		if (threadNum != firstThread) {
-			
+
 			col = 1;
 		}
 		try {
 			CSVParser analyizeCsvData = new CSVParser(new FileReader(filePathToData), CSVFormat.DEFAULT.withHeader());
 			numElementsInHeader = analyizeCsvData.getHeaderMap();
-			numberOfColumns = numElementsInHeader.size();	
+			numberOfColumns = numElementsInHeader.size();
 			numElementsInHeader.clear();
 
 			for (CSVRecord row : analyizeCsvData) {
 				for (col = 0; col < numberOfColumns; col++) {
-					datatypesMatched = matchDataToRegex(row.get(col));
-					
+					datatypesMatched = findMatchingRegexForDataType(row.get(col));
+
 					for (int i = 0; i < datatypesMatched.size(); i++) {
 						if (listOfDataTypesPerColumn.get(col).containsKey(datatypesMatched.get(i))) {
 							listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i),
@@ -149,7 +108,7 @@ public class DetectDataTypes {
 					}
 					++col;
 				}
-				
+
 			}
 			analyizeCsvData.close();
 		} catch (FileNotFoundException e) {
@@ -159,12 +118,12 @@ public class DetectDataTypes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return listOfDataTypesPerColumn;
 	}// end findDataTypesPerColumn
 
-	public static List<String> matchDataToRegex(String dataFromOneColumnCell) {
+	public static List<String> findMatchingRegexForDataType(String dataFromOneColumnCell) {
 		int regex = 1;
 		int dataTypeOfRegex = 0;
 		List<String> datatypesMatched = null;
@@ -185,6 +144,55 @@ public class DetectDataTypes {
 			e.printStackTrace();
 		}
 		return datatypesMatched;
-	}// end matchDataToRegex
+	}// end findMatchingRegexForDataType
+
+	public static void determineDominantTypePerGroupOfData(List<Map<String, Integer>> dataTypesInGroupOfData,
+			List<Map<String, Integer>> dominantDataTypeInGroupOfData) {
+		int frequencyOfDominantType = 0;
+		String dominantType = "none yet";
+
+		// change the name for the dataTypesIngroupofdata and read from the collectiondata.....
+
+		// call this function in main
+
+
+		for (int i = 0; i < dataTypesInGroupOfData.size(); i++) {
+			frequencyOfDominantType = 0;
+			dominantType = "none yet";
+			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
+
+			for (String currentDataType : dataTypesInGroupOfData.get(i).keySet()) {
+				Integer frequencyOfCurrentType = dataTypesInGroupOfData.get(i).get(currentDataType);
+				if (frequencyOfCurrentType > frequencyOfDominantType) {
+					frequencyOfDominantType = frequencyOfCurrentType;
+					dominantType = currentDataType;
+				}
+			}
+			System.out.println("The dominant type in col " + i + " " + dominantType);
+			dominantDataTypeInCol.put(dominantType, frequencyOfDominantType);
+			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
+		}
+
+	}
+
+	public static void determineIfGuessedDataTypesIsTrue(List<Map<String, Integer>> dominantDataTypeInFirstGroup, List<Map<String, Integer>> dominantDataTypeFromSecondGroup) {
+		boolean isGuessedType = false;
+
+		// call this method in main.
+
+		//determine if guessed type is true using the datatype that was used to determine the dominant group of data.
+
+		for (int i = 0; i < dominantDataTypeFromSecondGroup.size(); i++) {
+			isGuessedType = dominantDataTypeFromSecondGroup.get(i).equals(dominantDataTypeInFirstGroup.get(i));
+
+			if (isGuessedType == true) {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+			} else {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+				System.out.println("Actual type for col " + i + " " + dominantDataTypeFromSecondGroup.get(i));
+				System.out.println("");
+			}
+		} // end for
+	}// end determineIfGuessedTypeIsTrue
 
 }
