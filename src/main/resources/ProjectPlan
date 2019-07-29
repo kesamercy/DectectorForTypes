@@ -1,12 +1,19 @@
 way forward plan:
+3. re-organise the functions and test to see if they work correctly. might add a print function
 
+4b. read threads that use the worker and reader thread implementation
+5.  research on different csvparser to use so that you can know the number of elements in the file so that you determine the fraction to be read by the user 
 
-4. think about a new implementaion for the threads / reading data.\
 
 things changed:
 1. change the name for the num to get from the user
 2. clean the data from the regex files
 3. get a regex to read floats and ints
+4. start implementing to get the first thread to read odd numbers from the file 
+	- research how to get the parser to only read the odd numbers 
+5.  make sure the threads method still reads the correct number for the thread num passed
+4a. implement the threads that read odd and even
+	
 
 
 Notes:

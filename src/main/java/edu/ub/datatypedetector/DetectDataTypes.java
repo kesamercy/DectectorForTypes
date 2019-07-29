@@ -5,8 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -29,30 +34,78 @@ public class DetectDataTypes {
 	public static String regexFilePath = "none yet";
 	public static int fractionOfRecordsInFirstGroup = 0;
 	public static final int GROUPSOFDATA = 2;
+	public static String filePathToData = "none yet";
+	public static ArrayList<List<Map<String, Integer>>> collectionOfDataTypesPerGroupOfData = new ArrayList<List<Map<String, Integer>>>();
+	public static Thread[] threadPerDataGroup = new Thread[GROUPSOFDATA];
+	public static ArrayList<Map<String, Integer>> sortedDataTypes = new ArrayList<Map<String, Integer>>();
+	
 
 	public static void main(String[] args) throws IOException {
-		String filePathtoData = args[0];
+		filePathToData = args[0];
 		String numToDivideDataIntoTwoGroups = args[1];
 		regexFilePath = args[2];
 		fractionOfRecordsInFirstGroup = Integer.parseInt(numToDivideDataIntoTwoGroups);
 
-		guessDataTypesInEachColumn(filePathtoData);
-
+		guessDataTypesInEachColumn();
 		
+		//compare the results in the collectionOfDataTypesPerGroupOfData and return the greatest or not	
 	}// end main
+	
+	public static void determineDominantTypePerGroupOfData(List<Map<String, Integer>> dataTypesInGroupOfData,
+			List<Map<String, Integer>> dominantDataTypeInGroupOfData) {
+		int frequencyOfDominantType = 0;
+		String dominantType = "none yet";
 
-	public static void guessDataTypesInEachColumn(String filePathToData) {
-		ArrayList<List<Map<String, Integer>>> collectionOfDataTypesPerGroupOfData = new ArrayList<List<Map<String, Integer>>>();
-		Thread[] threadPerDataGroup = new Thread[GROUPSOFDATA];
+		for (int i = 0; i < dataTypesInGroupOfData.size(); i++) {
+			frequencyOfDominantType = 0;
+			dominantType = "none yet";
+			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
 
+			for (String currentDataType : dataTypesInGroupOfData.get(i).keySet()) {
+				Integer frequencyOfCurrentType = dataTypesInGroupOfData.get(i).get(currentDataType);
+				if (frequencyOfCurrentType > frequencyOfDominantType) {
+					frequencyOfDominantType = frequencyOfCurrentType;
+					dominantType = currentDataType;
+				}
+			}
+			System.out.println("The dominant type in col " + i + " " + dominantType);
+			dominantDataTypeInCol.put(dominantType, frequencyOfDominantType);
+			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
+		}
+
+	}
+	
+	public static void determineIfGuessedDataTypesIsTrue(List<Map<String, Integer>> dominantDataTypeInFirstGroup, List<Map<String, Integer>> dominantDataTypeFromSecondGroup) {
+		boolean isGuessedType = false;
+
+		for (int i = 0; i < dominantDataTypeFromSecondGroup.size(); i++) {
+			isGuessedType = dominantDataTypeFromSecondGroup.get(i).equals(dominantDataTypeInFirstGroup.get(i));
+
+			if (isGuessedType == true) {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+			} else {
+				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+				System.out.println("Actual type for col " + i + " " + dominantDataTypeFromSecondGroup.get(i));
+				System.out.println("");
+			}
+		} // end for
+	}// end determineIfGuessedTypeIsTrue
+
+	public static void guessDataTypesInEachColumn() {
 		for (int i = 0; i < threadPerDataGroup.length; i++) {
 
+			//think about how to implement the thread numbers 
 			threadPerDataGroup[i] = new Thread(() -> {
 				int threadNum = 0;
+				int numTimesFunctionHasExecuted = 0;
+				if (numTimesFunctionHasExecuted != 0) {
+					++threadNum;
+				}
 				List<Map<String, Integer>> listOfDataTypeFromAGroup = new ArrayList<Map<String, Integer>>();
 
-				listOfDataTypeFromAGroup = findDataTypesPerColumn(filePathToData, threadNum);
+				listOfDataTypeFromAGroup = findDataTypesPerColumn(threadNum);
 				collectionOfDataTypesPerGroupOfData.add(listOfDataTypeFromAGroup);
+				++numTimesFunctionHasExecuted;
 			});
 			threadPerDataGroup[i].start();
 		}
@@ -63,72 +116,29 @@ public class DetectDataTypes {
 				e.printStackTrace();
 			}
 		}
-		
-		//compare the results in the collectionOfDataTypesPerGroupOfData and return the greatest or not
-		
 	}// end findDataTypes
 
-	public static List<Map<String, Integer>> findDataTypesPerColumn(String filePathToData, int threadNum) {
+	public static List<Map<String, Integer>> findDataTypesPerColumn(int threadNum) {
 		int numberOfColumns = 0;
-		int numberOfRows =  0;
-		int count = 0;
+		int col = 0;
 		int firstThread = 1;  //think about making this a global variable
-		int numElementsInFirstGroupOfData = 0;
 		Map<String, Integer> numElementsInHeader;
 		List<String> datatypesMatched = null;
-		List<CSVRecord> numberOfRecorsInFile = null;
 		List<Map<String, Integer>> listOfDataTypesPerColumn = null;
-
+		if (threadNum != firstThread) {
+			
+			col = 1;
+		}
 		try {
 			CSVParser analyizeCsvData = new CSVParser(new FileReader(filePathToData), CSVFormat.DEFAULT.withHeader());
 			numElementsInHeader = analyizeCsvData.getHeaderMap();
-			numberOfRecorsInFile = analyizeCsvData.getRecords();
-			/*
-			 * i recognise that numrows method reads through the csv file first in order to return the number of rows.
-			 * there's no other way i can think of on how we can get the fraction to be read first without having to parse
-			 * the file atleast once. we need to know the number of records in order to determine the fraction that will be used
-			 * to determine the first guess for the records.. csvParser has nothing else... tried to look into another parser
-			 * most of them use csvparser under the hood...eg opencsv
-			*/
-			
-			numberOfColumns = numElementsInHeader.size();
-			numberOfRows = numberOfRecorsInFile.size();
-			
+			numberOfColumns = numElementsInHeader.size();	
 			numElementsInHeader.clear();
-//			numberOfRecorsInFile.clear();
-			
-			fractionOfRecordsInFirstGroup = numberOfRows / fractionOfRecordsInFirstGroup;
-			
-			/*
-			 * have a while loop for second thread to skip particular data ---- didn't know how to get the iterator to start from a particular pstn -- help (?)
-			 * 
-			 * for (int i = 0; i < numToSkip; i++) { if (iterator.hasNext()) {
-			 * iterator.next(); }
-			 * 
-			 * }
-			 */
-			
-			for (CSVRecord row : analyizeCsvData) {
-				if (threadNum != firstThread && count == 0) {
-					for (int i = 0; i < fractionOfRecordsInFirstGroup; i++) {
-						
-						row.iterator();
-					}
-				}
-				
-				if(threadNum == 0){
-					if (count == fractionOfRecordsInFirstGroup) {
-						analyizeCsvData.close();
-						break;
-					}
-					else {
-						++count;
-					}
-					
-				}
-				for (int col = 0; col < numberOfColumns; col++) {
-					datatypesMatched = matchDataToRegex(row.get(col));
 
+			for (CSVRecord row : analyizeCsvData) {
+				for (col = 0; col < numberOfColumns; col++) {
+					datatypesMatched = matchDataToRegex(row.get(col));
+					
 					for (int i = 0; i < datatypesMatched.size(); i++) {
 						if (listOfDataTypesPerColumn.get(col).containsKey(datatypesMatched.get(i))) {
 							listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i),
@@ -137,6 +147,7 @@ public class DetectDataTypes {
 							listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i), 1);
 						}
 					}
+					++col;
 				}
 				
 			}
@@ -157,13 +168,6 @@ public class DetectDataTypes {
 		int regex = 1;
 		int dataTypeOfRegex = 0;
 		List<String> datatypesMatched = null;
-		
-		/*create an exception for if the type found is integer and it also matched to integer and float, 
-		 * then increase the count for an integer and increase the count for a float
-		 * 
-		 * if the type found is for float, and integer and float, then increase the count for only
-		 * floats
-		*/
 		try {
 			CSVParser analyizeCsvForRegex = new CSVParser(new FileReader(regexFilePath),
 					CSVFormat.DEFAULT.withHeader());
