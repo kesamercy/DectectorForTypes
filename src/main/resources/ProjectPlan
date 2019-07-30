@@ -13,6 +13,7 @@ things changed:
 5.  make sure the threads method still reads the correct number for the thread num passed
 4a. implement the threads that read odd and even
 3. re-organise the functions and test to see if they work correctly. might add a print function
+4. started testing the function re-written so debugging currently. will move on to the other implementation.
 
 
 
@@ -22,6 +23,11 @@ it's impossible to determine the fraction of data to examine without knowing the
 i don't know any other way of getting the number of records in the file without loading them into memory.
 for now, i thought moving on from an implementation that doesn't require the user to enter a number at
 the command line might be a tentative solution.
+
+Problem: Some of the regex match some of them don't. when they were assigned as variables they matched, now in string format, they don't match for the most part. 
+for example, date. 
+
+
 
 
 
