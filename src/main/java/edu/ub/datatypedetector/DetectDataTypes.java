@@ -41,9 +41,19 @@ public class DetectDataTypes {
 	public static Thread[] threadPerDataGroup = new Thread[GROUPSOFDATA];
 	public static int threadNum = 0;
 
+	// can't have 2 data guesses at the same time.... also: might not be clear to someone else that they need to set a bunch of variables .... the reason why this may not be efficient.
+
+	// create  a new class that has this as instance variables..... instead of having the static varibales here....
+	// it also helps to put the initalization step in one place.... you have a construtor so that takes care of it.
+	// take the static varaibles and turn them into class varaibles....
+
+
+	// static variables are generally not the best option.... might want to change this.....
+	// sepearete the logic from the parts of the code that perform the functions.
+
 	public static void main(String[] args) throws IOException {
 		filePathToData = args[0];
-		String numToDivideDataIntoTwoGroups = args[1];
+		String numToDivideDataIntoTwoGroups = args[1]; //we can do awy with this... not needed for now
 		regexFilePath = args[2];
 		fractionOfRecordsInFirstGroup = Integer.parseInt(numToDivideDataIntoTwoGroups);
 
@@ -55,9 +65,11 @@ public class DetectDataTypes {
 	public static void guessDataTypesInEachColumn() {
 		for (int i = 0; i < threadPerDataGroup.length; i++) {
 
+			// if you decalre it as final, then you can use it in the thread..
+
 			// think about how to implement the thread numbers
 			threadPerDataGroup[i] = new Thread(() -> {
-				threadNum = 0;
+				int threadNum = 0; //or pass it as a parameter...
 				int numTimesFunctionHasExecuted = 0;
 				if (numTimesFunctionHasExecuted != 0) {
 					++threadNum;
@@ -101,7 +113,7 @@ public class DetectDataTypes {
 			numElementsInHeader.clear();
 
 			for (CSVRecord row : analyizeCsvData) {
-				for (col = 0; col < numberOfColumns; col++) {
+				for (col; col < numberOfColumns; col+=2) {  //col should be reset..... here look into some issues
 					datatypesMatched = findMatchingRegexForDataType(row.get(col));
 					//first store the type found into a hash map then add it to the listofdatatypes per column
 
@@ -113,14 +125,13 @@ public class DetectDataTypes {
 							} else {
 								listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i), 1);
 							}
-						}//end if for empty 
+						}//end if for empty
 						else {
 							//alternatively, store the data into a hash map then add it to the list.
 //							listOfDataTypesPerColumn.add(col, listOfDataTypesPerColumn.set(index, element));
 						}
 
 					}
-					++col;
 				}
 
 			}
