@@ -20,7 +20,23 @@ public class Detector {
 	private Map<String, Integer> numElementsInHeader;
 	private List<String> datatypesMatched;
 
-	
+// take out the thread Id's.
+	// think of what functions to use ---- ask yourself why i'm writing this? what is the end goal when you are writing the code/
+	//specify why that exists...
+
+
+	//not just the varaibles but also the code that is associated with the varaibles should change... research on how and why the varaibles should be declared in a class and not the way.... the problems of having static variables... etc.
+
+
+	//avoid static methods in java.... static methods are usedulf for code that doesn't need to
+
+	//make sure the functions are --- look at the encapsualtion and understand this concept in regard to
+
+	//what are the components and what are there responsibilties. think about this for the functions
+//
+//
+
+	// put the code that deals with type detection in one class and put the code that deals with the declaring of varaibles in another class
 
 	public Detector() {
 		regexFilePath = "none yet";
@@ -52,7 +68,7 @@ public class Detector {
 		threadPerDataGroup = new Thread[GROUPSOFDATA];
 		dataTypesFromAllColumns = new ArrayList<Map<String, Integer>>();
 	}
-	
+
 	public int getSizeOfListOfDataTypesMatched() {
 		return datatypesMatched.size();
 	}
