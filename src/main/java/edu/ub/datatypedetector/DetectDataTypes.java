@@ -32,109 +32,86 @@ public class DetectDataTypes {
 		// the line number can be traced back to the file with enum.
 	}
 
-	public static String regexFilePath = "none yet";
-	public static int fractionOfRecordsInFirstGroup = 0;
-	public static final int GROUPSOFDATA = 2;
-	public static String filePathToData = "none yet";
-	public static ArrayList<List<Map<String, Integer>>> dataTypesFoundFromDataProvided = new ArrayList<List<Map<String, Integer>>>();
-	public static ArrayList<List<Map<String, Integer>>> dominantDataTypesFromDataProvided = new ArrayList<List<Map<String, Integer>>>();
-	public static Thread[] threadPerDataGroup = new Thread[GROUPSOFDATA];
-	public static int threadNum = 0;
-
-	// can't have 2 data guesses at the same time.... also: might not be clear to someone else that they need to set a bunch of variables .... the reason why this may not be efficient.
-
-	// create  a new class that has this as instance variables..... instead of having the static varibales here....
-	// it also helps to put the initalization step in one place.... you have a construtor so that takes care of it.
-	// take the static varaibles and turn them into class varaibles....
-
-
-	// static variables are generally not the best option.... might want to change this.....
-	// sepearete the logic from the parts of the code that perform the functions.
+	public static Detector myDetector;
 
 	public static void main(String[] args) throws IOException {
-		filePathToData = args[0];
-		String numToDivideDataIntoTwoGroups = args[1]; //we can do awy with this... not needed for now
-		regexFilePath = args[2];
-		fractionOfRecordsInFirstGroup = Integer.parseInt(numToDivideDataIntoTwoGroups);
+		myDetector = new Detector(args[0], args[1]);
 
 		guessDataTypesInEachColumn();
-		determineDominantTypePerGroupOfData();
 
 	}// end main
 
 	public static void guessDataTypesInEachColumn() {
-		for (int i = 0; i < threadPerDataGroup.length; i++) {
+		for (int i = 0; i < myDetector.getSizeOfThreadPerDataGroup(); i++) {
 
-			// if you decalre it as final, then you can use it in the thread..
+			myDetector.getThreadInDataGroup()[i] = new Thread(() -> {
+				myDetector.getThreadId();
 
-			// think about how to implement the thread numbers
-			threadPerDataGroup[i] = new Thread(() -> {
-				int threadNum = 0; //or pass it as a parameter...
-				int numTimesFunctionHasExecuted = 0;
-				if (numTimesFunctionHasExecuted != 0) {
-					++threadNum;
+				if (myDetector.getNumTimesFunctionHasExecuted() != 0) {
+					myDetector.getNewThreadId();
 				}
-				List<Map<String, Integer>> listOfDataTypesFoundInEachColumn = new ArrayList<Map<String, Integer>>();
 
-				listOfDataTypesFoundInEachColumn = findDataTypesPerColumn();
-				dataTypesFoundFromDataProvided.add(listOfDataTypesFoundInEachColumn);
-				++numTimesFunctionHasExecuted;
+				findDataTypesPerColumn();
+
+				myDetector.addDataTypesFromAllColumnsToCollectionOfTypesFromDataProvided(); // change the last part of
+																							// the name
+
+				myDetector.incrementNumTimesFunctionHasExcuted();
 			});
-			threadPerDataGroup[i].start();
+			myDetector.getThreadInDataGroup()[i].start();
 		}
-		for (int i = 0; i < threadPerDataGroup.length; i++) {
-			try {
-				threadPerDataGroup[i].join();
 
-				if (!threadPerDataGroup[threadPerDataGroup.length - 1].isAlive()) {
-					determineIfGuessedDataTypesIsTrue();
+		for (int i = 0; i < myDetector.getSizeOfThreadPerDataGroup(); i++) {
+			try {
+				myDetector.getThreadInDataGroup()[i].join();
+
+				if (!myDetector.getLastThreadInGroupOfThreads().isAlive()) {
+					determineDominantTypeInEachGroupOfData();
+					determineIfDataTypesInBothDataGroupsMatch();
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-	}// end findDataTypes
+	}
 
-	public static List<Map<String, Integer>> findDataTypesPerColumn() {
-		int numberOfColumns = 0;
+	public static void findDataTypesPerColumn() {
 		int col = 0;
-		int firstThread = 0;
-		Map<String, Integer> numElementsInHeader;
-		List<String> datatypesMatched = new ArrayList<String>();
-		List<Map<String, Integer>> listOfDataTypesPerColumn = new ArrayList<Map<String, Integer>>();
-		if (threadNum != firstThread) {
+		if (myDetector.getThreadId() != myDetector.getFirstThread()) {
 
 			col = 1;
 		}
 		try {
-			CSVParser analyizeCsvData = new CSVParser(new FileReader(filePathToData), CSVFormat.DEFAULT.withHeader());
-			numElementsInHeader = analyizeCsvData.getHeaderMap();
-			numberOfColumns = numElementsInHeader.size();
-			numElementsInHeader.clear();
+			CSVParser analyizeCsvData = new CSVParser(new FileReader(myDetector.getFilePathToData()),
+					CSVFormat.DEFAULT.withHeader());
+
+			myDetector.determineNumberOfColsInCsv(analyizeCsvData.getHeaderMap());
 
 			for (CSVRecord row : analyizeCsvData) {
-				for (col; col < numberOfColumns; col+=2) {  //col should be reset..... here look into some issues
-					datatypesMatched = findMatchingRegexForDataType(row.get(col));
-					//first store the type found into a hash map then add it to the listofdatatypes per column
+				for (; col < myDetector.getNumOfColsInCsv(); col += 2) {
+					Map<String, Integer> dataTypesFromOneColumn = new HashMap<String, Integer>(); // look into this...
 
-					for (int i = 0; i < datatypesMatched.size(); i++) {
-						if (!listOfDataTypesPerColumn.isEmpty()) {
-							if (listOfDataTypesPerColumn.get(col).containsKey(datatypesMatched.get(i))) {
-								listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i),
-										listOfDataTypesPerColumn.get(col).get(datatypesMatched.get(i)) + 1);
-							} else {
-								listOfDataTypesPerColumn.get(col).put(datatypesMatched.get(i), 1);
-							}
-						}//end if for empty
-						else {
-							//alternatively, store the data into a hash map then add it to the list.
-//							listOfDataTypesPerColumn.add(col, listOfDataTypesPerColumn.set(index, element));
+					myDetector.addTypesToListOfDataTypesMatched(findMatchingRegexForDataType(row.get(col)));
+
+					for (int i = 0; i < myDetector.getSizeOfListOfDataTypesMatched(); i++) {
+						if (dataTypesFromOneColumn.containsKey(myDetector.getListOfDataTypesMatched().get(i))) {
+							dataTypesFromOneColumn.put(myDetector.getListOfDataTypesMatched().get(i),
+									dataTypesFromOneColumn.get(myDetector.getListOfDataTypesMatched().get(i)) + 1);
+						} else {
+							dataTypesFromOneColumn.put(myDetector.getListOfDataTypesMatched().get(i), 1);
 						}
-
 					}
+					myDetector.addToTheListOfDataTypesOfAllColumns(dataTypesFromOneColumn);
+				}
+				if (myDetector.getThreadId() != myDetector.getFirstThread()) {
+
+					col = 1;
+				} else {
+					col = 0;
 				}
 
 			}
+
 			analyizeCsvData.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -144,20 +121,19 @@ public class DetectDataTypes {
 			e.printStackTrace();
 		}
 
-		return listOfDataTypesPerColumn;
 	}// end findDataTypesPerColumn
 
 	public static List<String> findMatchingRegexForDataType(String dataFromOneColumnCell) {
 		int regexColumnInCsv = 1;
 		int dataTypeOfRegex = 0;
-		List<String> datatypesMatched = new ArrayList<String>();
-		dataFromOneColumnCell = "4";
+		List<String> datatypesMatchedPerCol = new ArrayList<String>();
 		try {
-			CSVParser analyizeCsvForRegex = new CSVParser(new FileReader(regexFilePath),
-					CSVFormat.DEFAULT.withHeader());
+			CSVParser analyizeCsvForRegex = new CSVParser(new FileReader(myDetector.getRegexFilePath()),
+					CSVFormat.TDF.withHeader());
 			for (CSVRecord row : analyizeCsvForRegex) {
 				if (dataFromOneColumnCell.matches(row.get(regexColumnInCsv))) {
-					datatypesMatched.add(row.get(dataTypeOfRegex));
+					datatypesMatchedPerCol.add(row.get(dataTypeOfRegex));
+
 				}
 			}
 			analyizeCsvForRegex.close();
@@ -168,22 +144,25 @@ public class DetectDataTypes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return datatypesMatched;
+		return datatypesMatchedPerCol;
 	}// end findMatchingRegexForDataType
 
-	public static void determineDominantTypePerGroupOfData() {
+	public static void determineDominantTypeInEachGroupOfData() {
 		int frequencyOfDominantType = 0;
 		String dominantType = "none yet";
 		List<Map<String, Integer>> dominantDataTypeInGroupOfData = new ArrayList<Map<String, Integer>>();
 
-		for (int i = 0; i < dataTypesFoundFromDataProvided.get(threadNum).size(); i++) {
+		for (int i = 0; i < myDetector.getDataTypesFoundFromDataProvided().get(myDetector.getThreadId()).size(); i++) {
 			frequencyOfDominantType = 0;
 			dominantType = "none yet";
 			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
+			
+			System.out.println(myDetector.getDataTypesFoundFromDataProvided());
 
-			for (String currentDataType : dataTypesFoundFromDataProvided.get(threadNum).get(i).keySet()) {
-				Integer frequencyOfCurrentType = dataTypesFoundFromDataProvided.get(threadNum).get(i)
-						.get(currentDataType);
+			for (String currentDataType : myDetector.getDataTypesFoundFromDataProvided().get(myDetector.getThreadId())
+					.get(i).keySet()) {
+				Integer frequencyOfCurrentType = myDetector.getDataTypesFoundFromDataProvided()
+						.get(myDetector.getThreadId()).get(i).get(currentDataType);
 				if (frequencyOfCurrentType > frequencyOfDominantType) {
 					frequencyOfDominantType = frequencyOfCurrentType;
 					dominantType = currentDataType;
@@ -193,22 +172,26 @@ public class DetectDataTypes {
 			dominantDataTypeInCol.put(dominantType, frequencyOfDominantType);
 			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
 		}
-		dominantDataTypesFromDataProvided.add(dominantDataTypeInGroupOfData);
+		myDetector.addToTheDominantTypesOfDataProvided(dominantDataTypeInGroupOfData);
 
 	}
 
-	public static void determineIfGuessedDataTypesIsTrue() {
-		boolean isGuessedType = false;
+	public static void determineIfDataTypesInBothDataGroupsMatch() {
+		boolean isDeterminedDataType = false;
+		int dataTypesFromFirstGroup = 0;
+		int dataTypesFromSecondGroup = 1;
 
-		for (int i = 0; i < dominantDataTypesFromDataProvided.get(2).size(); i++) {
-			isGuessedType = dominantDataTypesFromDataProvided.get(2).get(i)
-					.equals(dominantDataTypesFromDataProvided.get(1).get(i));
+		for (int i = 0; i < myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup)
+				.size(); i++) {
+			isDeterminedDataType = myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup).get(i)
+					.equals(myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromFirstGroup).get(i));
 
-			if (isGuessedType == true) {
-				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
+			if (isDeterminedDataType == true) {
+				System.out.println("Guessed type for col " + i + " matches? " + isDeterminedDataType);
 			} else {
-				System.out.println("Guessed type for col " + i + " matches? " + isGuessedType);
-				System.out.println("Actual type for col " + i + " " + dominantDataTypesFromDataProvided.get(2).get(i));
+				System.out.println("Guessed type for col " + i + " matches? " + isDeterminedDataType);
+				System.out.println("Actual type for col " + i + " "
+						+ myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup).get(i));
 				System.out.println("");
 			}
 		} // end for
