@@ -29,22 +29,6 @@ things changed:
 - make sure the first regex are reading correctly, date is now recoginised 
 
 
-
-Notes:
-it's impossible to determine the fraction of data to examine without knowing the number of records in the data.
-i don't know any other way of getting the number of records in the file without loading them into memory.
-for now, i thought moving on from an implementation that doesn't require the user to enter a number at
-the command line might be a tentative solution.
-
-Problem: Some of the regex match some of them don't. when they were assigned as variables they matched, now in string format, they don't match for the most part. 
-for example, date. 
-
-
-
-
-
-
-
 trick for the second batch is :
 
 1. if goal is to get immediate response, then you might not need to use threads... you can usethe

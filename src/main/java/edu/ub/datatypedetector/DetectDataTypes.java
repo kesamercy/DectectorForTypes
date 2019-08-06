@@ -53,10 +53,10 @@ public class DetectDataTypes {
 
 				findDataTypesPerColumn();
 
-				myDetector.addDataTypesFromAllColumnsToCollectionOfTypesFromDataProvided(); // change the last part of
-																							// the name
+				myDetector.addDataTypesFromAllColumnsToCollectionOfTypesFromDataProvided();
 
 				myDetector.incrementNumTimesFunctionHasExcuted();
+				myDetector.incrementFirstThread();
 			});
 			myDetector.getThreadInDataGroup()[i].start();
 		}
@@ -89,7 +89,15 @@ public class DetectDataTypes {
 
 			for (CSVRecord row : analyizeCsvData) {
 				for (; col < myDetector.getNumOfColsInCsv(); col += 2) {
-					Map<String, Integer> dataTypesFromOneColumn = new HashMap<String, Integer>(); // look into this...
+					// step through this code again. problem found was with storing the data.
+
+					/*				
+					problem found was with storing the data returned. datatypes from All cols should only have
+					3 cols. currently increasing indefinetly.... there's a bug here that needs to be solved
+					
+					*/
+					Map<String, Integer> dataTypesFromOneColumn = new HashMap<String, Integer>(); // look into
+																									// this...
 
 					myDetector.addTypesToListOfDataTypesMatched(findMatchingRegexForDataType(row.get(col)));
 
@@ -156,7 +164,7 @@ public class DetectDataTypes {
 			frequencyOfDominantType = 0;
 			dominantType = "none yet";
 			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
-			
+
 			System.out.println(myDetector.getDataTypesFoundFromDataProvided());
 
 			for (String currentDataType : myDetector.getDataTypesFoundFromDataProvided().get(myDetector.getThreadId())
@@ -183,7 +191,8 @@ public class DetectDataTypes {
 
 		for (int i = 0; i < myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup)
 				.size(); i++) {
-			isDeterminedDataType = myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup).get(i)
+			isDeterminedDataType = myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromSecondGroup)
+					.get(i)
 					.equals(myDetector.getDominantDataTypesFromDataProvided().get(dataTypesFromFirstGroup).get(i));
 
 			if (isDeterminedDataType == true) {

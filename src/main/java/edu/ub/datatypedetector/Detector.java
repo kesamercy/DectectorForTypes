@@ -81,7 +81,6 @@ public class Detector {
 		return ++threadId;
 	}
 	public Thread[] getThreadInDataGroup() {
-
 		return threadPerDataGroup;
 	}
 	public Thread getLastThreadInGroupOfThreads() {
@@ -99,10 +98,7 @@ public class Detector {
 	public List<Map<String, Integer>> getdataTypesFromAllColumns() {
 		return dataTypesFromAllColumns;
 	}
-	public Thread[] getThreadPerDataGroup() {
-		return threadPerDataGroup;
-	}
-	
+
 	public void addToTheDominantTypesOfDataProvided(List<Map<String, Integer>> newDominantTypes) {
 		dominantDataTypesFromDataProvided.add(newDominantTypes);
 	}
@@ -111,6 +107,9 @@ public class Detector {
 	}
 	public void addToTheListOfDataTypesOfAllColumns(Map<String, Integer> dataTypesFromOneColumn) {
 		this.dataTypesFromAllColumns.add(dataTypesFromOneColumn);
+		System.out.println(dataTypesFromAllColumns);
+		System.out.println(dataTypesFromAllColumns.size());
+
 	}
 
 	public void addDataTypesFromAllColumnsToCollectionOfTypesFromDataProvided() {
@@ -119,40 +118,14 @@ public class Detector {
 	public void incrementNumTimesFunctionHasExcuted() {
 		this.numTimesFunctionHasExecuted += 1;
 	}
+	public void incrementFirstThread() {
+		this.firstThread += 1;
+	}
 	public void determineNumberOfColsInCsv(Map<String, Integer> elementsFromHeader) {
 		numElementsInHeader = elementsFromHeader;
 		this.numberOfColumns = numElementsInHeader.size();
 		numElementsInHeader.clear();
 	}
 
-	public void setRegexFilePath(String newRegexFilePath) {
-		this.regexFilePath = newRegexFilePath;
-	}
-
-	public void setFilePathToData(String newFilePathToData) {
-		this.filePathToData = newFilePathToData;
-	}
-
-	public void setDataTypesFoundFromDataProvided(
-			ArrayList<List<Map<String, Integer>>> newDataTypesFoundFromDataProvided) {
-		this.dataTypesFoundFromDataProvided = newDataTypesFoundFromDataProvided;
-	}
-
-	public void settDominantDataTypesFromDataProvided(
-			ArrayList<List<Map<String, Integer>>> newDominantDataTypesFromDataProvided) {
-		this.dominantDataTypesFromDataProvided = newDominantDataTypesFromDataProvided;
-	}
-
-	public void setThreadPerDataGroup(Thread[] newThreadPerDataGroup) {
-		this.threadPerDataGroup = newThreadPerDataGroup;
-	}
-
-	public void setThreadId(int newthreadId) {
-		this.threadId = newthreadId;
-	}
-
-	public void setNumTimesFunctionHasExecuted(int newNumTimesFunctionHasExecuted) {
-		this.numTimesFunctionHasExecuted = newNumTimesFunctionHasExecuted;
-	}
 
 }
