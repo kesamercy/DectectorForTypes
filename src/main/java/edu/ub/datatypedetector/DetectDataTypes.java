@@ -77,8 +77,8 @@ public class DetectDataTypes {
 
 	public static void findDataTypesPerColumn() {
 		int col = 0;
+		
 		if (myDetector.getThreadId() != myDetector.getFirstThread()) {
-
 			col = 1;
 		}
 		try {
@@ -89,31 +89,36 @@ public class DetectDataTypes {
 
 			for (CSVRecord row : analyizeCsvData) {
 				for (; col < myDetector.getNumOfColsInCsv(); col += 2) {
-					// step through this code again. problem found was with storing the data.
+					Map<String, Integer> dataTypesFromOneColumn = new HashMap<String, Integer>();
 
-					/*				
-					problem found was with storing the data returned. datatypes from All cols should only have
-					3 cols. currently increasing indefinetly.... there's a bug here that needs to be solved
-					
-					*/
-					Map<String, Integer> dataTypesFromOneColumn = new HashMap<String, Integer>(); // look into
-																									// this...
+					myDetector.datatypesMatched = findMatchingRegexForDataType(row.get(col));
 
-					myDetector.addTypesToListOfDataTypesMatched(findMatchingRegexForDataType(row.get(col)));
-
-					for (int i = 0; i < myDetector.getSizeOfListOfDataTypesMatched(); i++) {
-						if (dataTypesFromOneColumn.containsKey(myDetector.getListOfDataTypesMatched().get(i))) {
-							dataTypesFromOneColumn.put(myDetector.getListOfDataTypesMatched().get(i),
-									dataTypesFromOneColumn.get(myDetector.getListOfDataTypesMatched().get(i)) + 1);
-						} else {
-							dataTypesFromOneColumn.put(myDetector.getListOfDataTypesMatched().get(i), 1);
+					if (myDetector.dataTypesFromAllColumns.size() != myDetector.numberOfColumns) {
+						for (int i = 0; i < myDetector.datatypesMatched.size(); i++) {
+							if (dataTypesFromOneColumn.containsKey(myDetector.datatypesMatched.get(i))) {
+								dataTypesFromOneColumn.put(myDetector.datatypesMatched.get(i),
+										dataTypesFromOneColumn.get(myDetector.datatypesMatched.get(i)) + 1);
+							} else {
+								dataTypesFromOneColumn.put(myDetector.datatypesMatched.get(i), 1);
+							}
 						}
-					}
-					myDetector.addToTheListOfDataTypesOfAllColumns(dataTypesFromOneColumn);
+						myDetector.dataTypesFromAllColumns.add(col, dataTypesFromOneColumn);
+					}//end if 
+					else {	
+						for (int i = 0; i < myDetector.datatypesMatched.size(); i++) {
+							if (myDetector.dataTypesFromAllColumns.get(col).containsKey(myDetector.datatypesMatched.get(i))) {
+								myDetector.dataTypesFromAllColumns.get(col).put(myDetector.datatypesMatched.get(i),
+										myDetector.dataTypesFromAllColumns.get(col).get(myDetector.datatypesMatched.get(i)) + 1);
+							} else {
+								myDetector.dataTypesFromAllColumns.get(col).put(myDetector.datatypesMatched.get(i), 1);
+							}
+						}//end for 	
+					}//end else 
 				}
 				if (myDetector.getThreadId() != myDetector.getFirstThread()) {
 
 					col = 1;
+					
 				} else {
 					col = 0;
 				}
@@ -166,8 +171,9 @@ public class DetectDataTypes {
 			Map<String, Integer> dominantDataTypeInCol = new HashMap<String, Integer>();
 
 			System.out.println(myDetector.getDataTypesFoundFromDataProvided());
+			
 
-			for (String currentDataType : myDetector.getDataTypesFoundFromDataProvided().get(myDetector.getThreadId())
+			for (String currentDataType : myDetector.dataTypesFoundFromDataProvided.get(myDetector.threadId)
 					.get(i).keySet()) {
 				Integer frequencyOfCurrentType = myDetector.getDataTypesFoundFromDataProvided()
 						.get(myDetector.getThreadId()).get(i).get(currentDataType);

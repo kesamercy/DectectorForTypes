@@ -1,4 +1,10 @@
 way forward plan:
+- step through for the second thread....see what's happening.
+- change the class methods to be public 
+- get the bug fixed
+
+
+
 - transfer all the variables to be declared in the dector file 
 - debug the code to figure out what's cauing the bug now. 
 

@@ -6,19 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 public class Detector {
-	private String regexFilePath;
-	private final int GROUPSOFDATA = 2;
-	private String filePathToData;
-	private int threadId;
-	private int numTimesFunctionHasExecuted;
-	private int numberOfColumns;
-	private int firstThread;
-	private List<Map<String, Integer>> dataTypesFromAllColumns;
-	private ArrayList<List<Map<String, Integer>>> dataTypesFoundFromDataProvided;
-	private ArrayList<List<Map<String, Integer>>> dominantDataTypesFromDataProvided;
-	private Thread[] threadPerDataGroup;
-	private Map<String, Integer> numElementsInHeader;
-	private List<String> datatypesMatched;
+	public String regexFilePath;
+	public final int GROUPSOFDATA = 2;
+	public String filePathToData;
+	public int threadId;
+	public int numTimesFunctionHasExecuted;
+	public int numberOfColumns;
+	public int firstThread;
+	public List<Map<String, Integer>> dataTypesFromAllColumns;
+	public ArrayList<List<Map<String, Integer>>> dataTypesFoundFromDataProvided;
+	public ArrayList<List<Map<String, Integer>>> dominantDataTypesFromDataProvided;
+	public Thread[] threadPerDataGroup;
+	public Map<String, Integer> numElementsInHeader;
+	public List<String> datatypesMatched;
+	public int divideInHalf;
+	public int numColumnsToCheck;
 
 // take out the thread Id's.
 	// think of what functions to use ---- ask yourself why i'm writing this? what is the end goal when you are writing the code/
@@ -51,6 +53,8 @@ public class Detector {
 		dominantDataTypesFromDataProvided = new ArrayList<List<Map<String, Integer>>>();
 		threadPerDataGroup = new Thread[GROUPSOFDATA];
 		dataTypesFromAllColumns = new ArrayList<Map<String, Integer>>();
+		divideInHalf = 2;
+		numColumnsToCheck = numberOfColumns / divideInHalf;
 
 	}
 
@@ -67,6 +71,9 @@ public class Detector {
 		dominantDataTypesFromDataProvided = new ArrayList<List<Map<String, Integer>>>();
 		threadPerDataGroup = new Thread[GROUPSOFDATA];
 		dataTypesFromAllColumns = new ArrayList<Map<String, Integer>>();
+		divideInHalf = 2;
+		numColumnsToCheck = numberOfColumns / divideInHalf;
+
 	}
 
 	public int getSizeOfListOfDataTypesMatched() {
