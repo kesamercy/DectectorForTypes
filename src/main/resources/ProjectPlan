@@ -1,58 +1,9 @@
-way forward plan:
-- step through for the second thread....see what's happening.
-- change the class methods to be public 
-- get the bug fixed
+This week:
+- changed the implemementation for some of the functions becasue reading the odd and even cols required slightly
+different logic. 
+- finished debugging now things work as expected
+- only thing left is cleaning up the regex which i didn't get to finish because of debugging and rethinking the logic of the implementation
+- since this is the last week, i will just tidy up things and finish up whatver is not done. 
 
 
 
-- transfer all the variables to be declared in the dector file 
-- debug the code to figure out what's cauing the bug now. 
-
-- transfer the files with the data from the other folder to this folder for research
-- 
-
-
-- transfer the local variables to the dector class initalize all the variables in the new class
-- debug the code -- figure out why current output is the way it is now. 
-- test run on large 
-
-
-
-
-
-
-- reorganised the files. going to rename them and then test... if test works, then move on to the version2 of the implementation
-4b. read threads that use the worker and reader thread implementation
-5.  research on different csvparser to use so that you can know the number of elements in the file so that you determine the fraction to be read by the user
-
-
-things changed:
-- get the threadnum to work correctly
-- get the set and get methods to work correctly
-- created a new class for the variables 
-- get the add method for the list of datatypes to work
-- change the type from which the csv values are being read. reading from tab delimited.
-- make sure the first regex are reading correctly, date is now recoginised 
-
-
-trick for the second batch is :
-
-1. if goal is to get immediate response, then you might not need to use threads... you can usethe
-same iterator for both threads.....
-
-
-2. have one thread for reading the data and then other worker threads to process the data.
-DataStrucrure  that can help with this..... check rocket chat for the link to this...
-
-3. One of the queue impelementations for the data from the threads......
-reader and worker threads is this method
-isolate code needed to read and isolate the code needed to process the records.
-trick is to keep them in sync, the threads would be reading in the data at the same time
-
-
-
-hack: split the data in a different
-have the 2 threads take in turns in reading the rows. one thread reads even rows, other thread reads odd rows.
-each thread would have it's own iterator....
-
-- skip lines...
