@@ -22,17 +22,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class DetectDataTypes {
-
-	public enum DataTypes {
-		INTEGER, FLOAT, DATE, BOOLEAN, TIME, STRING;
-		// comparing enums is much faster... than comparing the strings....
-		// this is better in the long run...
-
-		// think about replacing the line number in the REGEX file... so that it's much
-		// faster
-		// the line number can be traced back to the file with enum.
-	}
-
 	public static Detector myDetector;
 
 	public static void main(String[] args) throws IOException, InterruptedException {
@@ -50,6 +39,14 @@ public class DetectDataTypes {
 					++(myDetector.threadId);
 				}
 				System.out.println("Starting thread ID..." + myDetector.threadId);
+				if (myDetector.threadId % 2 == 0) {
+					System.out.println("Results from the thread reading the even columns...");
+					
+				}
+				else {
+					System.out.println("Results from the thread reading odd columns...");
+				}
+				System.out.println();
 
 				findDataTypesPerColumn();
 
@@ -59,8 +56,6 @@ public class DetectDataTypes {
 			myDetector.threadPerDataGroup[i].join();
 
 			++myDetector.numTimesFunctionHasExecuted;
-
-			// determine the most dominant type from each col read, return the most dominant from each col
 
 		}
 	}
@@ -125,10 +120,17 @@ public class DetectDataTypes {
 					col = 1;
 				}
 			} // end for row
-
+			
+			System.out.println("Data types found after a signle thread has run ");
 			System.out.println(dataTypesFromAllColumns);
+			
+			System.out.println();
+			
 			myDetector.dataTypesFoundFromDataProvided.add(dataTypesFromAllColumns);
-			System.out.println("from the main" + myDetector.dataTypesFoundFromDataProvided);
+			System.out.println("Collection of data types from all the threads that have run " );
+			System.out.println( myDetector.dataTypesFoundFromDataProvided);
+			System.out.println();
+			
 
 			analyizeCsvData.close();
 		} catch (FileNotFoundException e) {
@@ -187,6 +189,7 @@ public class DetectDataTypes {
 				}
 			}
 			System.out.println("The dominant type in col " + i + " " + dominantType);
+			System.out.println();
 			dominantDataTypeInCol.put(dominantType, frequencyOfDominantType);
 			dominantDataTypeInGroupOfData.add(i, dominantDataTypeInCol);
 		}

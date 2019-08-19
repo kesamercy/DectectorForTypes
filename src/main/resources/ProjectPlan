@@ -1,9 +1,15 @@
-This week:
-- changed the implemementation for some of the functions becasue reading the odd and even cols required slightly
-different logic. 
-- finished debugging now things work as expected
-- only thing left is cleaning up the regex which i didn't get to finish because of debugging and rethinking the logic of the implementation
-- since this is the last week, i will just tidy up things and finish up whatver is not done. 
+
+On the smaller data sets, the program is significantly much faster than the previous version.  
+
+Results from running the data on larger data sets:
+
+- I tested the data on larger data sets with more rows and columns and compared to the previous implementation, the program
+ran much faster but honestly, the more data i added the slower it became so from my conclusion, the program might
+be faster but I don't know if it's by far compared to the last implementation I had. Which made me wonder, how come it was
+signifcantly faster for smaller data sets but maybe a little bit faster than the last implementation when the data sets increased.
+I would have thought it would be significantly faster for both the large and small data sets. 
 
 
+The function where the program spent the most time running in the previous implementation was in the guessDataTypeInEachCol function while for the current implementation,
+the time lag  is the findDataTpyesPerCol function.
 
